@@ -2,8 +2,13 @@
 
 @section('container')
 <div class="row mb-4">
-    <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+    {{-- <div class="col-lg-8 col-md-6 mb-md-0 mb-4"> --}}
       <div class="card">
+        <div class="d-flex">
+            <div class="my-4">
+                <a href="/home/ramcheck" class="btn-lg btn-success my-3">Export</a>
+            </div>
+        </div>
         {{-- <div class="card-header pb-0">
           <div class="row">
             <div class="col-lg-6 col-7">
@@ -32,114 +37,76 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Update_at</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Driver</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No_vehicle</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PO</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama PO</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Angkutan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trayek</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Kendaraan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kesimpulan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Catatan</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">2022</h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">mukidi</h6>
-                        </div>
-                    </div>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="text-xs font-weight-bold"> ag1234sw </span>
-                  </td>
-                  <td class="align-middle">
-                    <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">harapan jaya</h6>
-                        </div>
-                    </div>
-                  </td>
-                  <td>
+                  @foreach ($transaksis as $transaksi)
+                  <tr>
+                    <td>
                       <div class="d-flex px-2 py-1">
-                        <button type="button" class="btn btn-info btn-sm">detail</button>
-                      </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">2022</h6>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="d-flex px-2 py-1">
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">mukudu</h6>
+                          <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
                         </div>
                       </div>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="text-xs font-weight-bold"> ag3333dw </span>
-                  </td>
-                  <td class="align-middle">
-                    <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">harapan jaya</h6>
-                        </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <button type="button" class="btn btn-info btn-sm">detail</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">2022</h6>
+                    </td>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ $transaksi->updated_at->toDateString() }}</h6>
+                          </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="mb-0 text-sm">mukuda</h6>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> {{ $transaksi->name_po }} </span>
+                    </td>
+                    <td class="align-middle">
+                      <div class="d-flex px-2 py-1">
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ $transaksi->jenis_angkutan }}</h6>
+                          </div>
                       </div>
-                    </div>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="text-xs font-weight-bold"> ag4444er </span>
-                  </td>
-                  <td class="align-middle">
-                    <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">harapan jaya</h6>
+                    </td>
+                    <td class="align-middle">
+                        <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">{{ $transaksi->trayek }}</h6>
+                            </div>
                         </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="d-flex px-2 py-1">
-                      <button type="button" class="btn btn-info btn-sm">detail</button>
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                    <td class="align-middle">
+                        <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm">{{ $transaksi->number_vehicle }}</h6>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="align-middle">
+                        @if ($transaksi->status_transaksi == true)
+                            <h6 class="mb-0 text-sm">laik</h6>
+                        @else
+                            <h6 class="mb-0 text-sm">Tidak laik</h6>
+                        @endif
+                    </td>
+                    <td>
+
+                    </td>
+                  </tr>
+                  @endforeach
               </tbody>
             </table>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-4 col-md-6">
+    {{-- </div> --}}
+    {{-- <div class="col-lg-4 col-md-6">
       <div class="card h-100">
         <div class="card-header pb-0">
           <h6>Orders overview</h6>
@@ -207,6 +174,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
   </div>
 @endsection

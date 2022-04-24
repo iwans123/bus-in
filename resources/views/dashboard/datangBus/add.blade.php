@@ -7,7 +7,7 @@
       <div class="card">
         <div class="row">
             <div class="d-inline col-md-6">
-                <form action="/dashboard/kedatangan">
+                <form action="/dashboard/kedatangan/create">
                     <div class="row">
                         <div class="input-group input-group-outline mb-3 my-3 mx-3 px-6">
                             <input name="search" type="text" class="form-control" placeholder="Search ..." value="{{ request('search') }}">

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KedatanganExport;
 use App\Models\kedatangan;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KedatanganController extends Controller
 {
@@ -15,10 +17,12 @@ class KedatanganController extends Controller
      */
     public function index()
     {
-        $kedatangan = kedatangan::latest();
+        $kedatangan = kedatangan::join('vehicles', 'vehicles.id', '=', 'kedatangans.vehicle_id')
+                                ->latest('kedatangans.created_at');
+        // $kedatangan = kedatangan::latest();
 
         return view('dashboard.datangBus.index',[
-            'kedatangans' => $kedatangan->get()
+            'kedatangans' => $kedatangan->get(['vehicles.name_po', 'vehicles.number_vehicle', 'vehicles.trayek', 'kedatangans.created_at', 'kedatangans.jumlahPenumpang'])
         ]);
     }
 
@@ -106,5 +110,8 @@ class KedatanganController extends Controller
     public function add($id){
         $vehicle = Vehicle::find($id);
         return view('dashboard.datangBus.create', compact('vehicle'));
+    }
+    public function export(){
+        return Excel::download(new KedatanganExport, 'Datakedatangan.xlsx');
     }
 }

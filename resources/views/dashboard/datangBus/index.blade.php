@@ -10,7 +10,7 @@
                 <a href="/dashboard/kedatangan/create" class="btn-lg btn-info my-3">Add</a>
             </div>
             <div class="my-4">
-                <a href="" class="btn-lg btn-success my-3">Export</a>
+                <a href="/dashboard/kedatangan/exportexcel" class="btn-lg btn-success my-3">Export</a>
             </div>
             {{-- <div class="col-md-6">
                 <form action="/dashboard/kedatangan">
@@ -27,8 +27,11 @@
               <thead>
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama PO</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No. Kend</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trayek</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Waktu</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Penumpang</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,18 +43,39 @@
                         </div>
                     </td>
                     <td>
+                        <div class="d-flex justify-content-center px-2 py-1">
+                          <div class="d-flex justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ $kedatangan->name_po }}</h6>
+                          </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center px-2 py-1">
+                          <div class="d-flex justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ $kedatangan->number_vehicle }}</h6>
+                          </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center px-2 py-1">
+                          <div class="d-flex justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ $kedatangan->trayek }}</h6>
+                          </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center px-2 py-1">
+                          <div class="d-flex justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ $kedatangan->created_at }}</h6>
+                          </div>
+                        </div>
+                    </td>
+                    <td>
                       <div class="d-flex justify-content-center px-2 py-1">
                         <div class="d-flex justify-content-center">
                           <h6 class="mb-0 text-sm">{{ $kedatangan->jumlahPenumpang }}</h6>
                         </div>
                       </div>
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-center px-2 py-1">
-                            <a href="/dashboard/kedatangan/{{ $kedatangan->id }}">
-                                <button type="button" class="btn btn-info btn-sm mx-1">Detail</button>
-                            </a>
-                        </div>
                     </td>
                   </tr>
                   @endforeach

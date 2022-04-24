@@ -10,7 +10,7 @@
                 <a href="/dashboard/keberangkatan/create" class="btn-lg btn-info my-3">Add</a>
             </div>
             <div class="my-4">
-                <a href="" class="btn-lg btn-success my-3">Export</a>
+                <a href="/dashboard/keberangkatan/exportexcel" class="btn-lg btn-success my-3">Export</a>
             </div>
             {{-- <div class="col-md-6">
                 <form action="/dashboard/keberangkatan">

@@ -44,11 +44,10 @@
               <thead>
                 <tr>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">DATE</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NOMOR KENDARAAN</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TANGGAL</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NAMA PO</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NOMOR KENDARAAN</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">PENGEMUDI</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">VERIFIKASI 1</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">VERIFIKASI 2</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                 </tr>
               </thead>
@@ -67,30 +66,17 @@
                     </td>
                     <td class="align-middle">
                         <div class="d-flex justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ $verifikasi->name_po }}</h6>
+                        </div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="d-flex justify-content-center">
                             <h6 class="mb-0 text-sm">{{ $verifikasi->number_vehicle }}</h6>
                         </div>
                     </td>
                     <td class="align-middle text-sm">
                         <div class="d-flex justify-content-center px-2 py-1">
                             <h6 class="mb-0 text-sm">{{ $verifikasi->driver }}</h6>
-                        </div>
-                    </td>
-                    <td class="align-middle">
-                        <div class="d-flex justify-content-center px-2 py-1">
-                            @if ($verifikasi->firstStatus == true)
-                                <span class="text-xs font-weight-bold badge bg-success">Active</span>
-                            @else
-                                <span class="text-xs font-weight-bold badge bg-danger">Non Active</span>
-                            @endif
-                        </div>
-                    </td>
-                    <td class="align-middle">
-                        <div class="d-flex justify-content-center px-2 py-1">
-                            @if ($verifikasi->secondStatus == true)
-                                <span class="text-xs font-weight-bold badge bg-success">Active</span>
-                            @else
-                                <span class="text-xs font-weight-bold badge bg-danger">Non Active</span>
-                            @endif
                         </div>
                     </td>
                     <td class="align-middle">

@@ -25,8 +25,6 @@ return new class extends Migration
             $table->date('birthday');
             $table->string('jenis_angkutan');
             $table->string('trayek');
-            $table->boolean('firstStatus')->nullable();
-            $table->boolean('secondStatus')->nullable();
             $table->timestamps();
         });
     }

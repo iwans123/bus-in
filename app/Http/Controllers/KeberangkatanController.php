@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KeberangkatanExport;
 use App\Models\keberangkatan;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KeberangkatanController extends Controller
 {
@@ -107,5 +109,8 @@ class KeberangkatanController extends Controller
     {
         $vehicle = Vehicle::find($id);
         return view('dashboard.pergiBus.create', compact('vehicle'));
+    }
+    public function export(){
+        return Excel::download(new KeberangkatanExport, 'Datakedatangan.xlsx');
     }
 }

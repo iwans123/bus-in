@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Verifikasi;
 use App\Models\Vehicle;
+use App\Models\Transaksi;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class VerifikasiController extends Controller
 {
@@ -77,13 +79,49 @@ class VerifikasiController extends Controller
         //         ->update(array('status' => false));
 
 
+        // if ($verifikasi == true) {
+        //     Vehicle::where('id', request('vehicle_id'))
+        //         ->update(array('firstStatus' => true));
+        // }else{
+        //     Vehicle::where('id', request('vehicle_id'))
+        //         ->update(array('firstStatus' => false, 'secondStatus' => false));
+        // }
+
+        // update status transaksi (progress transaksi) Transaksi
+        Transaksi::select('status_transaksi')
+                ->where('vehicle_id', request('vehicle_id'))
+                ->update(array('status_transaksi' => false));
+
+        // create Transakasi
+        $transaksi = $request->validate([
+            'vehicle_id' => 'required',
+            'penerangan_id' => 'nullable',
+            'pengereman_id' => 'nullable',
+            'badanKendaraan_id' => 'nullable',
+            'ban_id' => 'nullable',
+            'perlengkapan_id' => 'nullable',
+            'pengukurKecepatan_id' => 'nullanle',
+            'wiper_id' => 'nullable',
+            'tanggapDarurat' => 'nullable',
+            'peneranganPenunjang_id' => 'nullable',
+            'badanKendaraanPenunjang_id' => 'nullable',
+            'kapasitasPenunjang' => 'nullable',
+            'perlengkapanPenunjang' => 'nullable',
+            'status_transaksi' => 'nullable',
+            'status_firstVerifikasi' => 'nullable',
+            'status_secondVerifikasi' => 'nullable',
+            'catatan' => 'nullable'
+        ]);
+        $verifikasiTransaksi = Verifikasi::select('id')->latest()->first();
+        $transaksi['verifikasi_id'] = $verifikasiTransaksi['id'];
         if ($verifikasi == true) {
-            Vehicle::where('id', request('vehicle_id'))
-                ->update(array('firstStatus' => true));
+            $transaksi['status_firstVerifikasi'] = true;
+            $transaksi['status_transaksi'] = true;
         }else{
-            Vehicle::where('id', request('vehicle_id'))
-                ->update(array('firstStatus' => false, 'secondStatus' => false));
+            $transaksi['status_firstVerifikasi'] = false;
+            $transaksi['status_transaksi'] = true;
         }
+        Transaksi::create($transaksi);
 
 
 

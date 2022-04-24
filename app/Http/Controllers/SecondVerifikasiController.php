@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaksi;
 use App\Models\Verifikasi;
 use App\Models\Vehicle;
 use App\Models\Penerangan;
@@ -35,9 +36,15 @@ class SecondVerifikasiController extends Controller
         // $verifikasi = Verifikasi::with('vehicle')
         //                         ->where('status', true)
         //                         ->latest();
-        $verifikasi = Verifikasi::join('vehicles', 'vehicles.id', '=', 'verifikasis.vehicle_id')
-                                ->where('verifikasis.status', true)
-                                ->latest('verifikasis.created_at');
+
+        $transaksi = Transaksi::join('vehicles', 'vehicles.id', '=', 'transaksis.vehicle_id')
+                                ->join('verifikasis', 'verifikasis.id', '=', 'transaksis.verifikasi_id')
+                                ->where('transaksis.status_firstVerifikasi', true)
+                                ->where('transaksis.status_transaksi', true)
+                                ->latest('transaksis.updated_at');
+        // $verifikasi = Verifikasi::join('vehicles', 'vehicles.id', '=', 'verifikasis.vehicle_id')
+        //                         ->where('verifikasis.status', true)
+        //                         ->latest('verifikasis.created_at');
 
         // $vehicle = Vehicle::latest();
         // $verifikasi = \DB::table('verifikasis')
@@ -47,11 +54,16 @@ class SecondVerifikasiController extends Controller
         // ->groupBy('vehicle_id')
         // ->get();
         if(request('search')) {
-            $verifikasi->where('number_vehicle', 'like', '%' . request('search') . '%')->first();
+            $transaksi->where('number_vehicle', 'like', '%' . request('search') . '%')->first();
         }
         // dd($verifikasi);
         return view('dashboard.secondVerifikasi.index', [
-            'verifikasis' => $verifikasi->distinct('')->get(['vehicles.number_vehicle', 'vehicles.driver', 'verifikasis.id', 'verifikasis.created_at', 'vehicles.firstStatus', 'vehicles.secondStatus']),
+            'verifikasis' => $transaksi->get(['vehicles.number_vehicle',
+                                                'vehicles.name_po',
+                                                'vehicles.driver',
+                                                'verifikasis.id',
+                                                'verifikasis.created_at',
+                                                ]),
         ]);
     }
 
@@ -349,17 +361,17 @@ class SecondVerifikasiController extends Controller
         $badanPenunjangStatus == true &&
         $kapasitasPenunjangStatus == true &&
         $perlengkapanPenunjangStatus == true){
-            Vehicle::where('id', request('vehicle_id'))
-                ->update(array('secondStatus' => true));
+            Transaksi::where('verifikasi_id', request('verifikasi_id'))
+                ->update(array('status_secondVerifikasi' => true, 'status_transaksi' => false));
             // Verifikasi::where('id', request('verifikasi_id'))
             //     ->update(array('status' => false));
         }else{
-            Vehicle::where('id', request('vehicle_id'))
-                ->update(array('secondStatus' => false));
+            Transaksi::where('verifikasi_id', request('verifikasi_id'))
+                ->update(array('status_secondVerifikasi' => false, 'status_transaksi' => false));
         }
         // Vehicle::where('id', request('vehicle_id'))
         //         ->update(array('secondStatus' => true));
-        return redirect('dashboard/vehicles');
+        return redirect('dashboard/secondVerifikasis');
     }
 
     /**
