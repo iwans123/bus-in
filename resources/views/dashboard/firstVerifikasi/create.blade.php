@@ -240,8 +240,12 @@
                   </tr>
               </tbody>
             </table>
-          </div>
-          <button type="submit" class="btn btn-info">Submit</button>
-      </form>
-</div>
+        </div>
+    </div>
+    <div class="input-group input-group-outline my-5 col-3">
+        <label class="input-group-text" for="inputGroupFile01">Upload</label>
+        <input type="file" class="form-control" id="inputGroupFile01">
+    </div>
+    <button type="submit" class="btn btn-info">Submit</button>
+</form>
 @endsection
