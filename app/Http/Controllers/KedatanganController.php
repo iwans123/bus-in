@@ -17,12 +17,17 @@ class KedatanganController extends Controller
      */
     public function index()
     {
-        $kedatangan = kedatangan::join('vehicles', 'vehicles.id', '=', 'kedatangans.vehicle_id')
+        $kedatangan = kedatangan::select(['vehicles.name_po',
+                                        'vehicles.number_vehicle',
+                                        'vehicles.trayek',
+                                        'kedatangans.created_at',
+                                        'kedatangans.jumlahPenumpang'])
+                                ->join('vehicles', 'vehicles.id', '=', 'kedatangans.vehicle_id')
                                 ->latest('kedatangans.created_at');
         // $kedatangan = kedatangan::latest();
 
         return view('dashboard.datangBus.index',[
-            'kedatangans' => $kedatangan->get(['vehicles.name_po', 'vehicles.number_vehicle', 'vehicles.trayek', 'kedatangans.created_at', 'kedatangans.jumlahPenumpang'])
+            'kedatangans' => $kedatangan->paginate(7)
         ]);
     }
 
@@ -40,7 +45,7 @@ class KedatanganController extends Controller
         }
 
         return view('dashboard.datangBus.add', [
-            "vehicles" => $vehicle->get()
+            "vehicles" => $vehicle->paginate(7)
         ]);
     }
 

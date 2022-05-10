@@ -8,6 +8,8 @@ use App\Models\Transaksi;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Nullable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class VerifikasiController extends Controller
 {
@@ -29,7 +31,7 @@ class VerifikasiController extends Controller
         }
 
         return view('dashboard.firstVerifikasi.index', [
-            "vehicles" => $vehicle->get()
+            "vehicles" => $vehicle->paginate(7)
         ]);
     }
 
@@ -55,7 +57,7 @@ class VerifikasiController extends Controller
     public function store(Request $request)
     {
         // return $request;
-
+        // return $request->file('image')->store('post-image');
         $validateData = $request->validate([
             'vehicle_id' => 'required',
             'kartu_uji' => 'required',
@@ -73,19 +75,6 @@ class VerifikasiController extends Controller
         }
 
         Verifikasi::create($validateData);
-        // STATUS VEHICLE VERIFIKASI 1
-
-        // Vehicle::where('id', request('vehicle_id'))
-        //         ->update(array('status' => false));
-
-
-        // if ($verifikasi == true) {
-        //     Vehicle::where('id', request('vehicle_id'))
-        //         ->update(array('firstStatus' => true));
-        // }else{
-        //     Vehicle::where('id', request('vehicle_id'))
-        //         ->update(array('firstStatus' => false, 'secondStatus' => false));
-        // }
 
         // update status transaksi (progress transaksi) Transaksi
         Transaksi::select('status_transaksi')
@@ -110,7 +99,12 @@ class VerifikasiController extends Controller
             'status_transaksi' => 'nullable',
             'status_firstVerifikasi' => 'nullable',
             'status_secondVerifikasi' => 'nullable',
-            'catatan' => 'nullable'
+            'catatan' => 'nullable',
+            'image' => 'image|file',
+            'ppns_name' => 'nullable',
+            'ppns_nip' => 'nullable',
+            'penguji_name' => 'nullable',
+            'penguji_nip' => 'nullable'
         ]);
         $verifikasiTransaksi = Verifikasi::select('id')->latest()->first();
         $transaksi['verifikasi_id'] = $verifikasiTransaksi['id'];
@@ -121,6 +115,16 @@ class VerifikasiController extends Controller
             $transaksi['status_firstVerifikasi'] = false;
             $transaksi['status_transaksi'] = true;
         }
+
+        if  ($request->oldImage) {
+            Storage::delete($request->oldImage);
+        }
+        if ($request->file('image')) {
+            $transaksi['image'] = $request->file('image')->store('post-image');
+        }
+        $transaksi['ppns_name'] = Auth::user()->name;
+        $transaksi['ppns_nip'] = Auth::user()->nip;
+
         Transaksi::create($transaksi);
 
 
@@ -136,8 +140,14 @@ class VerifikasiController extends Controller
      */
     public function show($id)
     {
+        $transaksi = Transaksi::select('transaksis.image')
+                                ->where('vehicle_id', $id)
+                                ->latest();
+
         $vehicle = Vehicle::find($id);
-        return view('dashboard.firstVerifikasi.create', compact('vehicle'));
+        return view('dashboard.firstVerifikasi.create', compact('vehicle'), [
+            'transaksis' => $transaksi->get()
+        ]);
     }
 
     /**

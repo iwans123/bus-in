@@ -26,16 +26,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $transaksi = Transaksi::join('vehicles', 'vehicles.id', '=', 'transaksis.vehicle_id')
-                                ->join('verifikasis', 'verifikasis.id', '=', 'transaksis.verifikasi_id')
-                                ->latest('transaksis.updated_at');
+        $transaksi = Transaksi::select(['transaksis.updated_at',
+                                        'vehicles.name_po',
+                                        'vehicles.jenis_angkutan',
+                                        'vehicles.trayek',
+                                        'vehicles.number_vehicle',
+                                        'transaksis.status_transaksi'])
+                                        ->join('vehicles', 'vehicles.id', '=', 'transaksis.vehicle_id')
+                                        ->join('verifikasis', 'verifikasis.id', '=', 'transaksis.verifikasi_id')
+                                        ->latest('transaksis.updated_at');
         return view('dashboard.index', [
-            'transaksis' => $transaksi->get(['transaksis.updated_at',
-                                            'vehicles.name_po',
-                                            'vehicles.jenis_angkutan',
-                                            'vehicles.trayek',
-                                            'vehicles.number_vehicle',
-                                            'transaksis.status_transaksi'])
+            'transaksis' => $transaksi->paginate(7)
         ]);
     }
     public function export(){

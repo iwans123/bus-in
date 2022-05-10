@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="main-content  mt-0">
+{{-- <main class="main-content  mt-0">
     <div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container my-auto">
@@ -34,28 +34,52 @@
                             </span>
                         @enderror
                     </div>
-                    {{-- <div class="form-check form-switch d-flex align-items-center mb-3">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label class="form-check-label mb-0 ms-2" for="remember">{{ __('Remember Me') }}</label>
-                    </div> --}}
                     <div class="text-center">
                         <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">{{ __('Login') }}</button>
-                        {{-- @if (Route::has('password.request'))
-                            <a class="btn btn-link text-info" href="{{ route('password.request') }}">
-                                {{ __('Forgot Your Password?') }}
-                            </a>
-                        @endif --}}
                     </div>
-                    {{-- <p class="mt-4 text-sm text-center">
-                        Don't have an account?
-                        <a href="{{ route('register') }}" class="text-info text-gradient font-weight-bold">Register</a>
-                    </p> --}}
                 </form>
+
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+</main> --}}
+<main class="form-signin text-center" >
+    <div class="min-vh-100 opacity-75 bg-gradient bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-8 col-12 mx-auto">
+                    <div class="card p-3 border-success mt-5">
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <div class="d-flex justify-content-around">
+                                <img class="mb-4" src="/css/favicon.png" alt="" width="72" height="72">
+                                <img class="mb-4" src="/css/dishub.png" alt="" width="72" height="72">
+                            </div>
+                          <h1 class="h3 mb-3 fw-bold">Login</h1>
+
+                          <div class="form-floating mb-2">
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="floatingInput" placeholder="name@example.com" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <label for="floatingInput">Email address</label>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                          </div>
+                          <div class="form-floating mb-2">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="floatingPassword" placeholder="Password" name="password" required autocomplete="current-password">
+                            <label for="floatingPassword">Password</label>
+                          </div>
+                          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                          <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   </main>
 @endsection

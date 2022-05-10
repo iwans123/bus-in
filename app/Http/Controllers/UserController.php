@@ -17,11 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::join('roles', 'roles.id', '=', 'users.role_id')
-                    ->latest();
+        $user = User::latest();
 
         return view('dashboard.user.index', [
-            "users" => $user->get(['users.name', 'users.created_at', 'roles.name as roleName'])
+            "users" => $user->paginate(7)
         ]);
     }
 
@@ -49,15 +48,18 @@ class UserController extends Controller
     {
         // return request();
         $data = $request->validate([
+            'nip' => 'required',
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
-            'role_id' => ['required'],
+            // 'role_id' => ['required'],
             'password' => 'min:8|required_with:password-confirmation|same:password-confirmation',
             'password-confirmation' => 'min:8'
         ]);
         $data['password'] = Hash::make($data['password']);
 
-        User::create($data);
+        $user = User::create($data);
+
+        $user->assignrole(request('role'));
 
         return redirect('dashboard/user');
     }
@@ -102,8 +104,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        User::destroy($user->id);
+
+        return redirect('dashboard/user');
     }
 }

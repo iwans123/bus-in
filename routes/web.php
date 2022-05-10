@@ -29,47 +29,30 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Route::get('/dashboard/vehicles', [App\Http\Controllers\DashboardVehicleController::class, 'index']);
-
-// Route::resource('/dashboard/vehicles', DashboardVehicleController::class);
-// Route::get('/dashboard/downloadpdf', [DashboardVehicleController::class, 'downloadPDF']);
-
-// Route::resource('/dashboard/verifikasis', VerifikasiController::class);
-
-// Route::resource('/dashboard/secondVerifikasis', SecondVerifikasiController::class);
-
-// Route::resource('/dashboard/kedatangan', KedatanganController::class);
-// Route::get('/dashboard/kedatanganadd/{id}', [KedatanganController::class, 'add']);
-
-// Route::resource('/dashboard/keberangkatan', KeberangkatanController::class);
-// Route::get('/dashboard/keberangkatanadd/{id}', [KeberangkatanController::class, 'add']);
-
-// Route::resource('/dashboard/user', UserController::class);
-
 Route::group(['middleware' => 'auth'], function() {
-    Route::group(['middleware' => 'role:1'], function() {
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::get('/home/ramcheck', [App\Http\Controllers\HomeController::class, 'export']);
-        Route::resource('/dashboard/user', UserController::class);
-        Route::get('/dashboard/kedatangan/exportexcel', [KedatanganController::class, 'export']);
-        Route::get('/dashboard/keberangkatan/exportexcel', [KeberangkatanController::class, 'export']);
-    });
-    Route::group(['middleware' => ['role:1,2']], function() {
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::resource('/dashboard/vehicles', DashboardVehicleController::class);
-        Route::resource('/dashboard/verifikasis', VerifikasiController::class);
-    });
-    Route::group(['middleware' => 'role:1,3'], function() {
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::resource('/dashboard/secondVerifikasis', SecondVerifikasiController::class);
-    });
-    Route::group(['middleware' => 'role:1,4'], function() {
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::resource('/dashboard/kedatangan', KedatanganController::class);
-        Route::get('/dashboard/kedatanganadd/{id}', [KedatanganController::class, 'add']);
-        Route::resource('/dashboard/keberangkatan', KeberangkatanController::class);
-        Route::get('/dashboard/keberangkatanadd/{id}', [KeberangkatanController::class, 'add']);
-    });
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+Route::group(['middleware' => ['auth','role:admin']], function() {
+    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home/ramcheck', [App\Http\Controllers\HomeController::class, 'export']);
+    Route::get('/dashboard/downloadpdf', [DashboardVehicleController::class, 'downloadPDF']);
+    Route::resource('/dashboard/user', UserController::class);
+    Route::get('/dashboard/kedatangan/exportexcel', [KedatanganController::class, 'export']);
+    Route::get('/dashboard/keberangkatan/exportexcel', [KeberangkatanController::class, 'export']);
+});
+Route::group(['middleware' => ['auth','role:ppns|admin']], function() {
+    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('/dashboard/vehicles', DashboardVehicleController::class);
+    Route::resource('/dashboard/verifikasis', VerifikasiController::class);
+});
+Route::group(['middleware' => ['auth','role:penguji|admin']], function() {
+        // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('/dashboard/secondVerifikasis', SecondVerifikasiController::class);
+});
+Route::group(['middleware' => ['auth','role:post|admin']], function() {
+        // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('/dashboard/kedatangan', KedatanganController::class);
+    Route::get('/dashboard/kedatanganadd/{id}', [KedatanganController::class, 'add']);
+    Route::resource('/dashboard/keberangkatan', KeberangkatanController::class);
+    Route::get('/dashboard/keberangkatanadd/{id}', [KeberangkatanController::class, 'add']);
 });

@@ -17,10 +17,16 @@ class KeberangkatanController extends Controller
      */
     public function index()
     {
-        $keberangkatan = keberangkatan::latest();
+        $keberangkatan = keberangkatan::select(['vehicles.name_po',
+                                                'vehicles.number_vehicle',
+                                                'vehicles.trayek',
+                                                'keberangkatans.created_at',
+                                                'keberangkatans.jumlahPenumpang'])
+                                        ->join('vehicles', 'vehicles.id', '=', 'keberangkatans.vehicle_id')
+                                        ->latest('keberangkatans.created_at');
 
         return view('dashboard.pergiBus.index',[
-            'keberangkatans' => $keberangkatan->get()
+            'keberangkatans' => $keberangkatan->paginate(7)
         ]);
     }
 
@@ -38,7 +44,7 @@ class KeberangkatanController extends Controller
         }
 
         return view('dashboard.pergiBus.add', [
-            "vehicles" => $vehicle->get()
+            "vehicles" => $vehicle->paginate(7)
         ]);
     }
 

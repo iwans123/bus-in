@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('verifikasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_id')->references('id')->on('vehicles');
+            $table->foreignId('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
             $table->string('kartu_uji');
             $table->string('kp_reguler');
             $table->string('kp_cadangan');

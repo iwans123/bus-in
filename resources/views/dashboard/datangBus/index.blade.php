@@ -7,31 +7,27 @@
       <div class="card">
         <div class="d-flex">
             <div class="my-4 mx-4">
-                <a href="/dashboard/kedatangan/create" class="btn-lg btn-info my-3">Add</a>
+                <a href="/dashboard/kedatangan/create" class="btn btn-info my-3 fw-bold">Add</a>
             </div>
             <div class="my-4">
-                <a href="/dashboard/kedatangan/exportexcel" class="btn-lg btn-success my-3">Export</a>
+                <a href="/dashboard/kedatangan/exportexcel" class="btn btn-success my-3 fw-bold">Export</a>
             </div>
-            {{-- <div class="col-md-6">
-                <form action="/dashboard/kedatangan">
-                    <div class="input-group input-group-outline mb-3 my-3 mx-3 px-6">
-                        <input name="search" type="text" class="form-control" placeholder="Search ..." value="{{ request('search') }}">
-                        <button class="btn-lg btn-info">search</button>
-                    </div>
-                </form>
-            </div> --}}
+            <div class="my-4">
+                <button class="btn btn-warning mb-3 my-3 mx-3 text-white fw-bold" onclick='window.location.reload(true);'>Refresh</button>
+            </div>
         </div>
-        <div class="card-body px-0 pb-2">
-          <div class="table-responsive">
+        <div class="card-body px-0 pb-2 mx-3">
+          <div class="table-responsive card mb-3">
             <table class="table align-items-center mb-0">
               <thead>
-                <tr>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama PO</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No. Kend</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trayek</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Waktu</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jumlah Penumpang</th>
+                <tr class="bg-success">
+                  <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">No</th>
+                  <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Tanggal</th>
+                  <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Nama PO</th>
+                  <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">No. Kend</th>
+                  <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Trayek</th>
+                  <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Waktu</th>
+                  <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Jumlah Penumpang</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,6 +36,13 @@
                     <td>
                         <div class="d-flex justify-content-center">
                             {{ $loop->iteration }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center px-2 py-1">
+                          <div class="d-flex justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ $kedatangan->created_at->toDateString() }}</h6>
+                          </div>
                         </div>
                     </td>
                     <td>
@@ -66,7 +69,7 @@
                     <td>
                         <div class="d-flex justify-content-center px-2 py-1">
                           <div class="d-flex justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ $kedatangan->created_at }}</h6>
+                            <h6 class="mb-0 text-sm">{{ $kedatangan->created_at->toTimeString() }}</h6>
                           </div>
                         </div>
                     </td>
@@ -81,6 +84,9 @@
                   @endforeach
               </tbody>
             </table>
+            <div class="my-3 mx-3">
+                {{ $kedatangans->links() }}
+            </div>
           </div>
         </div>
       </div>

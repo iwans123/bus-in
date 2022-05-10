@@ -19,6 +19,7 @@ use App\Models\Kapasitas_penunjang;
 use App\Models\Perlengkapan_penunjang;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SecondVerifikasiController extends Controller
 {
@@ -37,7 +38,13 @@ class SecondVerifikasiController extends Controller
         //                         ->where('status', true)
         //                         ->latest();
 
-        $transaksi = Transaksi::join('vehicles', 'vehicles.id', '=', 'transaksis.vehicle_id')
+        $transaksi = Transaksi::select(['vehicles.number_vehicle',
+                                        'vehicles.name_po',
+                                        'vehicles.driver',
+                                        'verifikasis.id',
+                                        'verifikasis.created_at',
+                                        ])
+                                ->join('vehicles', 'vehicles.id', '=', 'transaksis.vehicle_id')
                                 ->join('verifikasis', 'verifikasis.id', '=', 'transaksis.verifikasi_id')
                                 ->where('transaksis.status_firstVerifikasi', true)
                                 ->where('transaksis.status_transaksi', true)
@@ -58,12 +65,7 @@ class SecondVerifikasiController extends Controller
         }
         // dd($verifikasi);
         return view('dashboard.secondVerifikasi.index', [
-            'verifikasis' => $transaksi->get(['vehicles.number_vehicle',
-                                                'vehicles.name_po',
-                                                'vehicles.driver',
-                                                'verifikasis.id',
-                                                'verifikasis.created_at',
-                                                ]),
+            'verifikasis' => $transaksi->paginate(7),
         ]);
     }
 
@@ -362,12 +364,12 @@ class SecondVerifikasiController extends Controller
         $kapasitasPenunjangStatus == true &&
         $perlengkapanPenunjangStatus == true){
             Transaksi::where('verifikasi_id', request('verifikasi_id'))
-                ->update(array('status_secondVerifikasi' => true, 'status_transaksi' => false));
+                ->update(array('status_secondVerifikasi' => true, 'status_transaksi' => false, 'penguji_name' => Auth::user()->name, 'penguji_nip' => Auth::user()->nip));
             // Verifikasi::where('id', request('verifikasi_id'))
             //     ->update(array('status' => false));
         }else{
             Transaksi::where('verifikasi_id', request('verifikasi_id'))
-                ->update(array('status_secondVerifikasi' => false, 'status_transaksi' => false));
+                ->update(array('status_secondVerifikasi' => false, 'status_transaksi' => false, 'penguji_name' => Auth::user()->name, 'penguji_nip' => Auth::user()->nip));
         }
         // Vehicle::where('id', request('vehicle_id'))
         //         ->update(array('secondStatus' => true));

@@ -5,8 +5,13 @@
     {{-- <div class="col-lg-8 col-md-6 mb-md-0 mb-4"> --}}
       <div class="card">
         <div class="d-flex">
-            <div class="my-4">
-                <a href="/home/ramcheck" class="btn-lg btn-success my-3">Export</a>
+            @hasanyrole('admin')
+                <div class="mx-3">
+                    <a href="/home/ramcheck" class="btn btn-success my-3">Export</a>
+                </div>
+            @endhasanyrole
+            <div class="">
+                <button class="btn btn-warning mb-3 my-3 mx-3 text-white fw-bold" onclick='window.location.reload(true);'>Refresh</button>
             </div>
         </div>
         {{-- <div class="card-header pb-0">
@@ -32,40 +37,44 @@
             </div>
           </div>
         </div> --}}
-        <div class="card-body px-0 pb-2">
-          <div class="table-responsive">
+        <div class="card-body px-0 pb-2 mx-3">
+          <div class="table-responsive card mb-3">
             <table class="table align-items-center mb-0">
               <thead>
-                <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama PO</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jenis Angkutan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trayek</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Kendaraan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kesimpulan</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Catatan</th>
+                <tr class="bg-success">
+                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">No</th>
+                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Tanggal</th>
+                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Nama PO</th>
+                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Jenis Angkutan</th>
+                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Trayek</th>
+                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">No Kendaraan</th>
+                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Kesimpulan</th>
+                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Catatan</th>
                 </tr>
               </thead>
               <tbody>
                   @foreach ($transaksis as $transaksi)
                   <tr>
                     <td>
-                      <div class="d-flex px-2 py-1">
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
+                        <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
+                            </div>
                         </div>
-                      </div>
                     </td>
                     <td>
-                      <div class="d-flex px-2 py-1">
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ $transaksi->updated_at->toDateString() }}</h6>
-                          </div>
-                      </div>
+                        <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">{{ $transaksi->updated_at->toDateString() }}</h6>
+                            </div>
+                        </div>
                     </td>
-                    <td class="align-middle text-center text-sm">
-                      <span class="text-xs font-weight-bold"> {{ $transaksi->name_po }} </span>
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                            <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">{{ $transaksi->name_po }}</h6>
+                            </div>
+                        </div>
                     </td>
                     <td class="align-middle">
                       <div class="d-flex px-2 py-1">
@@ -89,19 +98,26 @@
                         </div>
                     </td>
                     <td class="align-middle">
-                        @if ($transaksi->status_transaksi == true)
-                            <h6 class="mb-0 text-sm">laik</h6>
+                        @if ($transaksi->status_firstVerifikasi == true && $transaksi->status_secondVerifikasi == true)
+                            <h6 class="text-success fw-bold">LAIK</h6>
                         @else
-                            <h6 class="mb-0 text-sm">Tidak laik</h6>
+                            <h6 class="text-danger fw-bold">TIDAK LAIK</h6>
                         @endif
                     </td>
                     <td>
-
+                        @if ($transaksi->status_firstVerifikasi == true && $transaksi->status_secondVerifikasi == true)
+                            <h6 class="text-success fw-bold">DIIJINKAN OPERASIONAL</h6>
+                        @else
+                            <h6 class="text-danger fw-bold">TILANG DAN DILARANG OPERASIONAL</h6>
+                        @endif
                     </td>
                   </tr>
                   @endforeach
               </tbody>
             </table>
+            <div class="my-3 mx-3">
+                {{ $transaksis->links() }}
+            </div>
           </div>
         </div>
       </div>

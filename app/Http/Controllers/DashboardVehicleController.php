@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaksi;
 use App\Models\Badan_kendaraan;
 use App\Models\Badankendaraan_penunjang;
 use App\Models\Ban;
@@ -34,7 +35,7 @@ class DashboardVehicleController extends Controller
     {
 
         return view('dashboard.vehicles.index', [
-            "vehicles" => Vehicle::all()
+            "vehicles" => Vehicle::paginate(7)
         ]);
     }
 
@@ -68,8 +69,6 @@ class DashboardVehicleController extends Controller
             'birthday' => 'required',
             'jenis_angkutan' => 'required',
             'trayek' => 'required|max:255',
-            'firstStatus' => 'nullable',
-            'secondStatus' => 'nullable'
         ]);
 
         Vehicle::create($validateData);
@@ -85,6 +84,27 @@ class DashboardVehicleController extends Controller
      */
     public function show($id)
     {
+        $transaksi = Transaksi::
+                            // kendaraan
+                            join('vehicles', 'vehicles.id', '=', 'transaksis.vehicle_id')
+                            // unsur administrasi
+                            // ->join('verifikasis', 'verifikasis.id', '=', 'transaksis.verifikasi_id')
+                            // // unsur teknis utama
+                            // ->join('penerangans', 'penerangans.id', '=', 'transaksis.penerangan_id')
+                            // ->join('pengeremen', 'pengeremen.id', '=', 'transaksis.pengereman_id')
+                            // ->join('badan_kendaraans', 'badan_kendaraans.id', '=', 'transaksis.badanKendaraan_id')
+                            // ->join('bans', 'bans.id', '=', 'transaksis.ban_id')
+                            // ->join('perlengkapans', 'perlengkapans.id','=', 'transaksis.perlengakapan_id')
+                            // ->join('pengukur_kecepatans', 'pengukur_kecepatans.id', '=', 'transaksis.pengukurKecepatan_id')
+                            // ->join('wipers', 'wipers.id', '=', 'transaksis.wiper_id')
+                            // ->join('tanggap_darurats', 'tanggap_darurats.id', '=', 'transaksis.tanggapDarurat_id')
+                            // // // unsur teknis penunjang
+                            // ->join('penerangan_penunjangs', 'penerangan_penunjangs.id', '=', 'peneranganPenunjang_id')
+                            // ->join('badanKendaraan_penunjangs', 'badanKendaraan_penunjangs.id', '=', 'transaksis.badanKendaraanPenunjang_id')
+                            // ->join('kapasitas_penunjangs', 'kapasitas_penunjangs.id', '=', 'transaksis.kapasitasPenunjang_id')
+                            // ->join('perlengkapan_penunjangs', 'perlengkapan_penunjangs.id', '=', 'transaksis.perlengkapanPenunjang_id')
+                            ->where('transaksis.vehicle_id', $id)
+                            ->latest('transaksis.created_at');
         $vehicle = Vehicle::find($id);
         $verifikasi = Verifikasi::where('vehicle_id', $id)
                                 ->latest();
@@ -129,6 +149,66 @@ class DashboardVehicleController extends Controller
                                                         ->where('verifikasis.vehicle_id', $id)
                                                         ->latest('perlengkapan_penunjangs.created_at');
         return view('dashboard.vehicles.show',compact('vehicle'), [
+            // transaksi
+            'transaksis' => $transaksi->get(['transaksis.status_firstVerifikasi',
+            'transaksis.status_secondVerifikasi',
+            'transaksis.status_transaksi',
+            'transaksis.image',
+            'transaksis.ppns_name',
+            'transaksis.ppns_nip',
+            'transaksis.penguji_name',
+            'transaksis.penguji_nip',
+            'vehicles.driver',
+            // // unsur administrasi
+            // 'verifikasis.kartu_uji',
+            // 'verifikasis.kp_reguler',
+            // 'verifikasis.kp_cadangan',
+            // 'verifikasis.sim_pengemudi',
+            // // unsur utama
+            // // penerangan
+            // 'penerangans.lampuUtama_dekat',
+            // 'penerangans.lampuUtama_jauh',
+            // 'penerangans.sein_depan',
+            // 'penerangans.sein_belakang',
+            // 'penerangans.lampuRem',
+            // 'penerangans.lampuMundur',
+            // // // pengereman
+            // 'pengeremen.remUtama',
+            // 'pengeremen.remParkir',
+            // // badan kendaraan
+            // 'badan_kendaraans.kaca_depan',
+            // 'badan_kendaraans.pintu_utama',
+            // // ban
+            // 'bans.ban_depan',
+            // 'bans.ban_belakang',
+            // // perlengkapan
+            // 'perlengkapans.sabukPengemudi',
+            // // pengukur kecepatan
+            // 'pengukur_kecepatans.pengukurKecepatan',
+            // // wiper
+            // 'wipers.wiper',
+            // // tanggap darurat
+            // 'tanggap_darurats.pintuDarurat',
+            // 'tanggap_darurats.jendelaDarurat',
+            // 'tanggap_darurats.alatPemecahkaca',
+            // // unsur teknis
+            // // penerangan penunjang
+            // 'penerangan_penunjangs.lampuPosisi_depan',
+            // 'penerangan_penunjangs.lampuPosisi_belakang',
+            // // badan kendaraan
+            // 'badankendaraan_penunjangs.kacaSpion',
+            // 'badankendaraan_penunjangs.klakson',
+            // 'badankendaraan_penunjangs.lantaiTangga',
+            // // kapasitas penunjang
+            // 'kapasitas_penunjangs.tempatDuduk',
+            // // perlengkapan penunjang
+            // 'perlengkapan_penunjangs.banCadangan',
+            // 'perlengkapan_penunjangs.segitigaPengaman',
+            // 'perlengkapan_penunjangs.dongkrak',
+            // 'perlengkapan_penunjangs.pembukaRoda',
+            // 'perlengkapan_penunjangs.lampuSenter'
+        ]),
+            // unsur administrasi
             'verifikasis' => $verifikasi->get(),
             // unsur teknis utama
             'penerangans' => $penerangan->get(['penerangans.lampuUtama_dekat',
@@ -197,8 +277,6 @@ class DashboardVehicleController extends Controller
             'birthday' => 'required',
             'jenis_angkutan' => 'required',
             'trayek' => 'required|max:255',
-            'firstStatus' => 'nullable',
-            'secondStatus' => 'nullable'
         ];
 
         $validateData = $request->validate($rules);

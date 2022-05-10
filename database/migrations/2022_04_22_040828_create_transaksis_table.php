@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_id')->references('id')->on('vehicles');
+            $table->foreignId('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
             $table->foreignId('verifikasi_id')->references('id')->on('verifikasis');
             $table->foreignId('penerangan_id')->nullable()->references('id')->on('penerangans');
             $table->foreignId('pengereman_id')->nullable()->references('id')->on('pengeremen');
@@ -33,6 +33,11 @@ return new class extends Migration
             $table->boolean('status_firstVerifikasi')->nullable();
             $table->boolean('status_secondVerifikasi')->nullable();
             $table->string('catatan')->nullable();
+            $table->string('image')->nullable();
+            $table->string('ppns_name')->nullable();
+            $table->integer('ppns_nip')->nullable();
+            $table->string('penguji_name')->nullable();
+            $table->integer('penguji_nip')->nullable();
             $table->timestamps();
         });
     }

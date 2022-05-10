@@ -1,432 +1,439 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<div class="row d-flex justify-content-center">
-    {{-- <div class="col-lg-4 col-md-3">
-        <div class="card h-50">
-          <div class="card-body p-3">
-            <div class="row gx-4 mb-2">
-                <div class="col-auto">
-                  <div class="avatar avatar-xl position-relative">
-                    <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                  </div>
-                </div>
-            </div>
-            <div class="row gx-4 mb-2">
-                <div class="col-auto my-auto">
-                  <div class="h-100">
-                    <h5 class="mb-1">
-                      {{ $vehicle->driver }}
-                    </h5>
-                    <p class="mb-0 font-weight-normal text-sm">
-                      CEO / Co-Founder
-                    </p>
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-    </div> --}}
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body p-3">
-                <div class="row gx-4 mb-2">
-                    <div class="col-auto">
-                        <div class="avatar avatar-xl position-relative">
-                            <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                        </div>
-                    </div>
-                    <div class="col-auto my-auto">
-                        <div class="h-100">
-                          <h5 class="mb-1">
-                            {{ $vehicle->driver }}
-                          </h5>
-                          <p class="mb-0 font-weight-normal text-sm">
-                            CEO / Co-Founder
-                          </p>
-                        </div>
-                      </div>
-                </div>
-                <hr class="horizontal gray-light my-4">
-                <ul class="list-group">
-                  <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">PO:</strong> &nbsp;{{ $vehicle->name_po }}</li>
-                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Lokasi:</strong> &nbsp;{{ $vehicle->location }}</li>
-                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Nama Lokasi:</strong> &nbsp;{{ $vehicle->location_name }}</li>
-                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">No Kendaraan:</strong> &nbsp;{{ $vehicle->number_vehicle }}</li>
-                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Jenis Kendaraan:</strong> &nbsp;{{ $vehicle->jenis_kendaraan }}</li>
-                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">No STUK:</strong> &nbsp;{{ $vehicle->number_stuk }}</li>
-                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Jenis Angkutan:</strong> &nbsp;{{ $vehicle->jenis_angkutan }}</li>
-                  <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Trayek:</strong> &nbsp;{{ $vehicle->trayek }}</li>
-                  <li class="list-group-item border-0 ps-0 pb-0">
-                    <strong class="text-dark text-sm">Verifikasi 1:</strong> &nbsp;
-                        @if ($vehicle->firstStatus == true)
-                            <span class="text-xs font-weight-bold badge bg-success">Active</span>
-                        @else
-                            <span class="text-xs font-weight-bold badge bg-danger">Non Active</span>
-                        @endif
-                    <strong class="text-dark text-sm">Verifikasi 2:</strong> &nbsp;
-                        @if ($vehicle->secondStatus == true)
-                            <span class="text-xs font-weight-bold badge bg-success">Active</span>
-                        @else
-                            <span class="text-xs font-weight-bold badge bg-danger">Non Active</span>
-                        @endif
-                        </a>
-                        <a href="/dashboard/downloadpdf" class="btn btn-info mx-6">Unduh</a>
-                  </li>
-                  <li>
-                  </li>
-                </ul>
-              </div>
-        </div>
-    </div>
-    {{-- <div class="mb-md-0 mb-4">
-        <div class="card px-5">
-                <div class="row gx-4 mb-2">
-                    <div class="col-auto">
-                        <div class="avatar avatar-xl position-relative">
-                            <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                        </div>
-                    </div>
-                    <div class="col-auto my-auto">
-                        <div class="h-100">
-                          <h5 class="mb-1">
-                            {{ $vehicle->driver }}
-                          </h5>
-                          <p class="mb-0 font-weight-normal text-sm">
-                            CEO / Co-Founder
-                          </p>
-                        </div>
-                      </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3">
-                    <div class="input-group input-group-static my-3">
-                        <label for="lahir">Update At</label>
-                        <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->update_at }}" disabled>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="input-group input-group-static my-3">
-                        <label for="lahir">PO</label>
-                        <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->name_po }}" disabled>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="input-group input-group-static my-3">
-                        <label for="lahir">Lokasi</label>
-                        <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->location }}" disabled>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="input-group input-group-static my-3">
-                        <label for="lahir">Nama Lokasi</label>
-                        <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->location_name }}" disabled>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="input-group input-group-static my-3">
-                            <label for="lahir">No Kendaraan</label>
-                            <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->number_vehicle }}" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group input-group-static my-3">
-                            <label for="lahir">Jenis Kendaraan</label>
-                            <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->jenis_kendaraan }}" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group input-group-static my-3">
-                            <label for="lahir">Tgl Lahir</label>
-                            <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->birthday }}" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group input-group-static my-3">
-                            <label for="lahir">No STUK</label>
-                            <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->number_stuk }}" disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="input-group input-group-static my-3">
-                            <label for="lahir">Jenis Angkutan</label>
-                            <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->jenis_angkutan }}" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group input-group-static my-3">
-                            <label for="lahir">Trayek</label>
-                            <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->trayek }}" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="input-group input-group-static my-3">
-                            @if ($vehicle->status == true)
-                                <span class="text-xs font-weight-bold badge bg-success">Active</span>
-                            @else
-                                <span class="text-xs font-weight-bold badge bg-danger">Non Active</span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                </div>
-        </div>
-    </div> --}}
-</div>
 <div class="row">
     <div class="mt-5 mb-md-0 mb-4">
-        {{-- unsur administrasi --}}
-        <div class="card px-5">
-            <div class="card-body px-0 pb-2">
-                <div class="mx-3">
-                    <h4>I. Unsur Administrasi</h4>
+        {{-- detail kendaraan --}}
+        <div class="card border-success container px-5 my-3">
+            <div class="flex">
+                <div class="mt-3">
+                    <a href="/dashboard/downloadpdf" class="btn btn-info">Unduh</a>
                 </div>
-                <div class="table-responsive">
-                    <table class="table align-items-center mb-0">
-                        <thead>
-                            <tr>
-                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">NO</th>
-                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">KRITERIA</th>
-                            <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-success">DIIJINKAN OPEARASIONAL</th>
-                            <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-danger">TILANG & DILARANG OPERASIONAL</th>
-                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder">KETERANGAN</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($verifikasis->count())
-                            <tr>
-                                <td>
-                                    <div class="d-flex px-2 py-1">
-                                    <span>1</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="font-weight-bold mb-0">Kartu uji / STUK</p>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="ada" name="kartu_uji" id="customRadio1"
-                                        @if ($verifikasis[0]->kartu_uji == 'ada')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">ada, berlaku</label>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="tidak ada" name="kartu_uji" id="customRadio1"
-                                        @if ($verifikasis[0]->kartu_uji == 'tidak ada')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">Tidak ada</label>
-                                        <input class="form-check-input" type="radio" value="tidak berlaku" name="kartu_uji" id="customRadio1"
-                                        @if ($verifikasis[0]->kartu_uji == 'tidak berlaku')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">Tidak berlaku</label>
-                                        <input class="form-check-input" type="radio" value="tidak sesuai fisik" name="kartu_uji" id="customRadio1"
-                                        @if ($verifikasis[0]->kartu_uji == 'tidak sesuai fisik')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">Tidak sesuai fisik</label>
-                                    </div>
-                                </td>
-                                <td class="align-middle">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex px-2 py-1">
-                                        <span>2</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="font-weight-bold mb-0">KP. Reguler</p>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="ada" name="kp_reguler" id="customRadio1"
-                                        @if ($verifikasis[0]->kp_reguler == 'ada')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">ada, berlaku</label>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="tidak ada" name="kp_reguler" id="customRadio1"
-                                        @if ($verifikasis[0]->kp_reguler == 'tidak ada')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">Tidak ada</label>
-                                        <input class="form-check-input" type="radio" value="tidak berlaku" name="kp_reguler" id="customRadio1"
-                                        @if ($verifikasis[0]->kp_reguler == 'tidak berlaku')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">Tidak berlaku</label>
-                                        <input class="form-check-input" type="radio" value="tidak sesuai fisik" name="kp_reguler" id="customRadio1"
-                                        @if ($verifikasis[0]->kp_reguler == 'tidak sesuai fisik')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">Tidak sesuai fisik</label>
-                                    </div>
-                                </td>
-                                <td class="align-middle">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex px-2 py-1">
-                                        <span>3</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="font-weight-bold mb-0">KP.Cadangan</p>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="ada" name="kp_cadangan" id="customRadio1"
-                                        @if ($verifikasis[0]->kp_cadangan == 'ada')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">ada, berlaku</label>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="tidak ada" name="kp_cadangan" id="customRadio1"
-                                        @if ($verifikasis[0]->kp_cadangan == 'tidak ada')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">Tidak ada</label>
-                                        <input class="form-check-input" type="radio" value="tidak berlaku" name="kp_cadangan" id="customRadio1"
-                                        @if ($verifikasis[0]->kp_cadangan == 'tidak berlaku')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">Tidak berlaku</label>
-                                        <input class="form-check-input" type="radio" value="tidak sesuai fisik" name="kp_cadangan" id="customRadio1"
-                                        @if ($verifikasis[0]->kp_cadangan == 'tidak sesuai fisik')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">Tidak sesuai fisik</label>
-                                    </div>
-                                </td>
-                                <td class="align-middle">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex px-2 py-1">
-                                        <span>4</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="font-weight-bold mb-0">SIM Pengemudi</p>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="A umum" name="sim_pengemudi" id="customRadio1"
-                                        @if ($verifikasis[0]->sim_pengemudi == 'A umum')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">A umum</label>
-                                        <input class="form-check-input" type="radio" value="B umum" name="sim_pengemudi" id="customRadio1"
-                                        @if ($verifikasis[0]->sim_pengemudi == 'B umum')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">B umum</label>
-                                        <input class="form-check-input" type="radio" value="C umum" name="sim_pengemudi" id="customRadio1"
-                                        @if ($verifikasis[0]->sim_pengemudi == 'C umum')
-                                            checked
-                                        @else
-                                            disabled
-                                        @endif>
-                                        <label class="custom-control-label" for="customRadio1">C umum</label>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="sim tidak sesuai" name="sim_pengemudi" id="customRadio1"
-                                        @if ($verifikasis[0]->sim_pengemudi == 'sim tidak sesuai')
+            </div>
+            <div class="card-body px-0 pb-2">
+                <div class="row">
+                    <div class="col-md mx-1">
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark">
+                                <span>
+                                    1
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    Hari Tanggal:
+                                </span>
+                            </div>
+                            <div class="col">
+                                <span>
+                                    {{ $vehicle->updated_at->toDateString() }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark">
+                                <span>
+                                    2
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    Lokasi:
+                                </span>
+                            </div>
+                            <div class="col border">
+                                <span>
+                                    {{ $vehicle->location }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark">
+                                <span>
+                                    3
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    Nama Lokasi:
+                                </span>
+                            </div>
+                            <div class="col border">
+                                <span>
+                                    {{ $vehicle->location_name }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark">
+                                <span>
+                                    4
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    Nama Pengemudi:
+                                </span>
+                            </div>
+                            <div class="col border">
+                                <span>
+                                    {{ $vehicle->driver }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark">
+                                <span>
+                                    5
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    Umur:
+                                </span>
+                            </div>
+                            <div class="col border">
+                                <span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md mx-1">
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark">
+                                <span>
+                                    6
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    Nama PO:
+                                </span>
+                            </div>
+                            <div class="col">
+                                <span>
+                                    {{ $vehicle->name_po }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark">
+                                <span>
+                                    7
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    No Kend:
+                                </span>
+                            </div>
+                            <div class="col border">
+                                <span>
+                                    {{ $vehicle->number_vehicle }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark">
+                                <span>
+                                    8
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    No STUK:
+                                </span>
+                            </div>
+                            <div class="col border">
+                                <span>
+                                    {{ $vehicle->number_stuk }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark">
+                                <span>
+                                    9
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    Jenis Trayek:
+                                </span>
+                            </div>
+                            <div class="col border">
+                                <span>
+                                    {{ $vehicle->jenis_angkutan }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row border border-dark my-1">
+                            <div class="col-1 border-end border-dark text-truncate">
+                                <span>
+                                    10
+                                </span>
+                            </div>
+                            <div class="col-4 border-end border-dark">
+                                <span>
+                                    Trayek:
+                                </span>
+                            </div>
+                            <div class="col border">
+                                <span>
+                                    {{ $vehicle->trayek }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- unsur administrasi --}}
+        <div class="card border-success container px-5 my-3">
+                <div class="card-body px-0 pb-2">
+                    <div class="mx-3">
+                        <h4>I. Unsur Administrasi</h4>
+                    </div>
+                    <div class="table-responsive card">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                <th class="text-uppercase text-secondary text-xs text-truncate font-weight-bolder opacity-7">NO</th>
+                                <th class="text-uppercase text-secondary text-xs text-truncate font-weight-bolder opacity-7 ps-2">KRITERIA</th>
+                                <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-success">DIIJINKAN OPEARASIONAL</th>
+                                <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-danger">TILANG & DILARANG OPERASIONAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($verifikasis->count())
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                        <span>1</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="font-weight-bold mb-0">Kartu uji / STUK</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="ada" name="kartu_uji" id="customRadio1"
+                                            @if ($verifikasis[0]->kartu_uji == 'ada')
                                                 checked
                                             @else
                                                 disabled
                                             @endif>
-                                        <label class="custom-control-label" for="customRadio1">SIM tidak sesuai</label>
-                                    </div>
-                                </td>
-                                <td class="align-middle">
-                                    {{ $verifikasis[0]->lampu_dekat }}
-                                </td>
-                            </tr>
-                            @endif
-                        </tbody>
-                    </table>
+                                            <label class="custom-control-label" for="customRadio1">ada, berlaku</label>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="tidak ada" name="kartu_uji" id="customRadio1"
+                                            @if ($verifikasis[0]->kartu_uji == 'tidak ada')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">Tidak ada</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="tidak berlaku" name="kartu_uji" id="customRadio1"
+                                            @if ($verifikasis[0]->kartu_uji == 'tidak berlaku')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">Tidak berlaku</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="tidak sesuai fisik" name="kartu_uji" id="customRadio1"
+                                            @if ($verifikasis[0]->kartu_uji == 'tidak sesuai fisik')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">Tidak sesuai fisik</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <span>2</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="font-weight-bold mb-0">KP. Reguler</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="ada" name="kp_reguler" id="customRadio1"
+                                            @if ($verifikasis[0]->kp_reguler == 'ada')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">ada, berlaku</label>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="tidak ada" name="kp_reguler" id="customRadio1"
+                                            @if ($verifikasis[0]->kp_reguler == 'tidak ada')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">Tidak ada</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="tidak berlaku" name="kp_reguler" id="customRadio1"
+                                            @if ($verifikasis[0]->kp_reguler == 'tidak berlaku')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">Tidak berlaku</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="tidak sesuai fisik" name="kp_reguler" id="customRadio1"
+                                            @if ($verifikasis[0]->kp_reguler == 'tidak sesuai fisik')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">Tidak sesuai fisik</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <span>3</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="font-weight-bold mb-0">KP.Cadangan</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="ada" name="kp_cadangan" id="customRadio1"
+                                            @if ($verifikasis[0]->kp_cadangan == 'ada')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">ada, berlaku</label>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="tidak ada" name="kp_cadangan" id="customRadio1"
+                                            @if ($verifikasis[0]->kp_cadangan == 'tidak ada')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">Tidak ada</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="tidak berlaku" name="kp_cadangan" id="customRadio1"
+                                            @if ($verifikasis[0]->kp_cadangan == 'tidak berlaku')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">Tidak berlaku</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="tidak sesuai fisik" name="kp_cadangan" id="customRadio1"
+                                            @if ($verifikasis[0]->kp_cadangan == 'tidak sesuai fisik')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">Tidak sesuai fisik</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <span>4</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="font-weight-bold mb-0">SIM Pengemudi</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="A umum" name="sim_pengemudi" id="customRadio1"
+                                            @if ($verifikasis[0]->sim_pengemudi == 'A umum')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">A umum</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="B umum" name="sim_pengemudi" id="customRadio1"
+                                            @if ($verifikasis[0]->sim_pengemudi == 'B umum')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">B umum</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="C umum" name="sim_pengemudi" id="customRadio1"
+                                            @if ($verifikasis[0]->sim_pengemudi == 'C umum')
+                                                checked
+                                            @else
+                                                disabled
+                                            @endif>
+                                            <label class="custom-control-label" for="customRadio1">C umum</label>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" value="sim tidak sesuai" name="sim_pengemudi" id="customRadio1"
+                                            @if ($verifikasis[0]->sim_pengemudi == 'sim tidak sesuai')
+                                                    checked
+                                                @else
+                                                    disabled
+                                                @endif>
+                                            <label class="custom-control-label" for="customRadio1">SIM tidak sesuai</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
         </div>
 
         {{-- unsur teknis utama --}}
-        <div class="card px-5 my-3">
+        <div class="card border-success container px-5 my-3">
             <div class="my-3">
                 <h4>
                     II. Unsur Teknis Utama
                 </h4>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive card mb-3">
                 <table class="table align-items-center mb-0">
-                  <thead>
+                <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">NO</th>
-                      <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">KRITERIA</th>
-                      <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-success">DIIJINKAN OPEARASIONAL</th>
-                      <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-danger">TILANG & DILARANG OPERASIONAL</th>
-                      <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder">KETERANGAN</th>
+                    <th class="text-uppercase text-secondary text-xs text-truncate font-weight-bolder opacity-7">NO</th>
+                    <th class="text-uppercase text-secondary text-xs text-truncate font-weight-bolder opacity-7 ps-2">KRITERIA</th>
+                    <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-success">DIIJINKAN OPEARASIONAL</th>
+                    <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-danger">TILANG & DILARANG OPERASIONAL</th>
                     </tr>
-                  </thead>
-                  <tbody>
+                </thead>
+                <tbody>
                     {{-- sistem penerangan --}}
-                    @if ($penerangans->count())
+                    @if ($transaksis[0]->status_transaksi == false)
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -436,6 +443,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Sistem Penerangan</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- Lampu utama kendaraan --}}
                     <tr>
@@ -447,19 +456,21 @@
                         <td>
                             <p class="font-weight-bold mb-0">Lampu Utama Kendaraan</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- A. Depan --}}
                     <tr>
-                      <td>
+                    <td>
                         <div class="d-flex px-2 py-1">
 
                         </div>
-                      </td>
-                      <td>
+                    </td>
+                    <td>
                         <p class="font-weight-bold mb-0">A.Depan</p>
-                      </td>
-                      <td class="align-middle">
-                        <div class="form-check">
+                    </td>
+                    <td class="align-middle">
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" value="menyala" name="lampuUtama_dekat" id="customRadio1"
                             @if ($penerangans[0]->lampuUtama_dekat == 'menyala')
                                 checked
@@ -468,10 +479,10 @@
                             @endif>
                             <label class="custom-control-label" for="customRadio1">semua menyala</label>
                         </div>
-                      </td>
-                      <td class="align-middle">
-                        <div class="form-check">
-                            <span>Tidak Menyala:</span>
+                    </td>
+                    <td class="align-middle">
+                        <span>Tidak Menyala:</span>
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" value="tidak menyala kanan" name="_dekat_dekat" id="customRadio1"
                             @if ($penerangans[0]->lampuUtama_dekat == 'tidak menyala kanan')
                                 checked
@@ -479,6 +490,8 @@
                                 disabled
                             @endif>
                             <label class="custom-control-label" for="customRadio1">kanan</label>
+                        </div>
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" value="tidak menyala kiri" name="lampuUtama_dekat" id="customRadio1"
                             @if ($penerangans[0]->lampuUtama_dekat == 'tidak menyala kiri')
                                 checked
@@ -487,22 +500,20 @@
                             @endif>
                             <label class="custom-control-label" for="customRadio1">kiri</label>
                         </div>
-                      </td>
-                      <td class="align-middle">
-                      </td>
+                    </td>
                     </tr>
                     {{-- B. Jauh --}}
                     <tr>
                         <td>
-                          <div class="d-flex px-2 py-1">
+                        <div class="d-flex px-2 py-1">
 
-                          </div>
+                        </div>
                         </td>
                         <td>
-                          <p class="font-weight-bold mb-0">A.Jauh</p>
+                        <p class="font-weight-bold mb-0">A.Jauh</p>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
+                        <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="menyala" name="lampuUtama_jauh" id="customRadio1"
                                 @if ($penerangans[0]->lampuUtama_jauh == 'menyala')
                                 checked
@@ -510,11 +521,11 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">semua menyala</label>
-                          </div>
+                        </div>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
-                                <span>Tidak Menyala:</span>
+                            <span>Tidak Menyala:</span>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kanan" name="lampuUtama_jauh" id="customRadio1"
                                 @if ($penerangans[0]->lampuUtama_jauh == 'tidak menyala kanan')
                                 checked
@@ -522,6 +533,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kanan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kiri" name="lampuUtama_jauh" id="customRadio1"
                                 @if ($penerangans[0]->lampuUtama_jauh == 'tidak menyala kiri')
                                 checked
@@ -529,9 +542,7 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kiri</label>
-                          </div>
-                        </td>
-                        <td class="align-middle">
+                            </div>
                         </td>
                     </tr>
                     {{-- Lampu penunjuk arah (sein) --}}
@@ -544,19 +555,21 @@
                         <td>
                             <p class="font-weight-bold mb-0">Lampu Penunjuk arah (sein)</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- A. Depan --}}
                     <tr>
                         <td>
-                          <div class="d-flex px-2 py-1">
+                        <div class="d-flex px-2 py-1">
 
-                          </div>
+                        </div>
                         </td>
                         <td>
-                          <p class="font-weight-bold mb-0">A.Depan</p>
+                        <p class="font-weight-bold mb-0">A.Depan</p>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
+                        <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="menyala" name="sein_depan" id="customRadio1"
                                 @if ($penerangans[0]->sein_depan == 'menyala')
                                     checked
@@ -564,11 +577,11 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">semua menyala</label>
-                          </div>
+                        </div>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
-                                <span>Tidak Menyala:</span>
+                            <span>Tidak Menyala:</span>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kanan" name="sein_depan" id="customRadio1"
                                 @if ($penerangans[0]->sein_depan == 'tidak menyala kanan')
                                     checked
@@ -576,6 +589,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kanan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kiri" name="sein_depan" id="customRadio1"
                                 @if ($penerangans[0]->sein_depan == 'tidak menyala kiri')
                                     checked
@@ -583,35 +598,33 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kiri</label>
-                          </div>
-                        </td>
-                        <td class="align-middle">
+                            </div>
                         </td>
                     </tr>
                     {{-- B. Belakang --}}
                     <tr>
                         <td>
-                          <div class="d-flex px-2 py-1">
+                        <div class="d-flex px-2 py-1">
 
-                          </div>
+                        </div>
                         </td>
                         <td>
-                          <p class="font-weight-bold mb-0">A.Belakang</p>
+                        <p class="font-weight-bold mb-0">A.Belakang</p>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
+                        <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="menyala" name="sein_belakang" id="customRadio1"
                                 @if ($penerangans[0]->sein_belakang == 'menyala')
                                     checked
                                 @else
                                     disabled
                                 @endif>
-                              <label class="custom-control-label" for="customRadio1">semua menyala</label>
-                          </div>
+                            <label class="custom-control-label" for="customRadio1">semua menyala</label>
+                        </div>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
-                                <span>Tidak Menyala:</span>
+                            <span>Tidak Menyala:</span>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kanan" name="sein_belakang" id="customRadio1"
                                 @if ($penerangans[0]->sein_belakang == 'tidak menyala kanan')
                                     checked
@@ -619,6 +632,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kanan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kiri" name="sein_belakang" id="customRadio1"
                                 @if ($penerangans[0]->sein_belakang == 'tidak menyala kiri')
                                     checked
@@ -626,13 +641,11 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kiri</label>
-                          </div>
-                        </td>
-                        <td class="align-middle">
+                            </div>
                         </td>
                     </tr>
-                     {{-- Lampu rem --}}
-                     <tr>
+                    {{-- Lampu rem --}}
+                    <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
                                 <span>3</span>
@@ -642,7 +655,7 @@
                             <p class="font-weight-bold mb-0">Lampu Rem</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="menyala" name="lampuRem" id="customRadio1"
                                 @if ($penerangans[0]->lampuRem == 'menyala')
                                     checked
@@ -653,8 +666,8 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
-                                <span>Tidak Menyala:</span>
+                            <span>Tidak Menyala:</span>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kanan" name="lampuRem" id="customRadio1"
                                 @if ($penerangans[0]->lampuRem == 'tidak menyala kanan')
                                     checked
@@ -662,6 +675,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kanan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kiri" name="lampuRem" id="customRadio1"
                                 @if ($penerangans[0]->lampuRem == 'tidak menyala kiri')
                                     checked
@@ -670,8 +685,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kiri</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- Lampu mundur --}}
@@ -685,7 +698,7 @@
                             <p class="font-weight-bold mb-0">Lampu Mundur</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="menyala" name="lampuMundur" id="customRadio1"
                                 @if ($penerangans[0]->lampuMundur == 'menyala')
                                     checked
@@ -696,7 +709,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <span>Tidak Menyala:</span>
                                 <input class="form-check-input" type="radio" value="tidak menyala kanan" name="lampuMundur" id="customRadio1"
                                 @if ($penerangans[0]->lampuMundur == 'tidak menyala kanan')
@@ -705,6 +718,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kanan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kiri" name="lampuMundur" id="customRadio1"
                                 @if ($penerangans[0]->lampuMundur == 'tidak menyala kiri')
                                     checked
@@ -714,12 +729,8 @@
                                 <label class="custom-control-label" for="customRadio1">kiri</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
-                    @endif
                     {{-- Sistem Pengereman --}}
-                    @if ($pengeremans->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -729,6 +740,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Sistem Pengereman</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- kondisi rem utama --}}
                     <tr>
@@ -741,7 +754,7 @@
                             <p class="font-weight-bold mb-0">Kondisi Rem Utama</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="berfungsi" name="remUtama" id="customRadio1"
                                 @if ($pengeremans[0]->remUtama == 'berfungsi')
                                     checked
@@ -752,7 +765,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak berfungsi" name="remUtama" id="customRadio1"
                                 @if ($pengeremans[0]->remUtama == 'tidak berfungsi')
                                     checked
@@ -761,8 +774,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak berfungsi</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- kondisi rem parkir --}}
@@ -776,7 +787,7 @@
                             <p class="font-weight-bold mb-0">Kondisi Rem Parkir</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="berfungsi" name="remParkir" id="customRadio1"
                                 @if ($pengeremans[0]->remParkir == 'berfungsi')
                                     checked
@@ -787,7 +798,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak berfungsi" name="remParkir" id="customRadio1"
                                 @if ($pengeremans[0]->remParkir == 'tidak berfungsi')
                                     checked
@@ -797,12 +808,8 @@
                                 <label class="custom-control-label" for="customRadio1">Tidak berfungsi</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
-                    @endif
                     {{-- C. Kondisi badan kendaraan --}}
-                    @if ($badanKendaraans->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -812,6 +819,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Badan kendaraan</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- Kondisi kaca depan --}}
                     <tr>
@@ -824,7 +833,7 @@
                             <p class="font-weight-bold mb-0">Kondisi Kaca Depan</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="baik" name="kaca_depan" id="customRadio1"
                                 @if ($badanKendaraans[0]->kaca_depan == 'baik')
                                     checked
@@ -835,7 +844,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="buruk" name="kaca_depan" id="customRadio1"
                                 @if ($badanKendaraans[0]->kaca_depan == 'buruk')
                                     checked
@@ -844,8 +853,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Buruk</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- pintu utama --}}
@@ -859,7 +866,7 @@
                             <p class="font-weight-bold mb-0">Pintu Utama</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="berfungsi" name="pintu_utama" id="customRadio1"
                                 @if ($badanKendaraans[0]->pintu_utama == 'berfungsi')
                                     checked
@@ -870,8 +877,8 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
-                                <span>Tidak Berfungsi:</span>
+                            <span>Tidak Berfungsi:</span>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak berfungsi kanan" name="pintu_utama" id="customRadio1"
                                 @if ($badanKendaraans[0]->pintu_utama == 'tidak berfungsi kanan')
                                     checked
@@ -879,6 +886,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kanan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak berfungsi kiri" name="pintu_utama" id="customRadio1"
                                 @if ($badanKendaraans[0]->pintu_utama == 'tidak berfungsi kiri')
                                     checked
@@ -888,12 +897,8 @@
                                 <label class="custom-control-label" for="customRadio1">kiri</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
-                    @endif
                     {{-- D. Ban --}}
-                    @if ($bans->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -903,6 +908,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Ban</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- Kondisi ban --}}
                     <tr>
@@ -914,19 +921,21 @@
                         <td>
                             <p class="font-weight-bold mb-0">Kondisi Ban</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- ban Depan --}}
                     <tr>
                         <td>
-                          <div class="d-flex px-2 py-1">
+                        <div class="d-flex px-2 py-1">
 
-                          </div>
+                        </div>
                         </td>
                         <td>
-                          <p class="font-weight-bold mb-0">A.Depan</p>
+                        <p class="font-weight-bold mb-0">A.Depan</p>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
+                        <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="laik" name="ban_depan" id="customRadio1"
                                 @if ($bans[0]->ban_depan == 'laik')
                                     checked
@@ -934,11 +943,11 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Semua laik</label>
-                          </div>
+                        </div>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
-                                <span>Tidak Laik:</span>
+                            <span>Tidak Laik:</span>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak laik kanan" name="ban_depan" id="customRadio1"
                                 @if ($bans[0]->ban_depan == 'tidak laik kanan')
                                     checked
@@ -946,41 +955,41 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kanan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak laik kiri" name="ban_depan" id="customRadio1"
                                 @if ($bans[0]->ban_depan == 'tidak laik kiri')
                                     checked
                                 @else
                                     disabled
                                 @endif>
-                              <label class="custom-control-label" for="customRadio1">kiri</label>
-                          </div>
-                        </td>
-                        <td class="align-middle">
+                            <label class="custom-control-label" for="customRadio1">kiri</label>
+                            </div>
                         </td>
                     </tr>
                     {{-- ban Belakang --}}
                     <tr>
                         <td>
-                          <div class="d-flex px-2 py-1">
+                        <div class="d-flex px-2 py-1">
 
-                          </div>
+                        </div>
                         </td>
                         <td>
-                          <p class="font-weight-bold mb-0">A.Belakang</p>
+                        <p class="font-weight-bold mb-0">A.Belakang</p>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
+                        <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="laik" name="ban_belakang" id="customRadio1"
                                 @if ($bans[0]->ban_belakang == 'laik')
                                     checked
                                 @else
                                     disabled
                                 @endif>
-                              <label class="custom-control-label" for="customRadio1">Semua laik</label>
-                          </div>
+                            <label class="custom-control-label" for="customRadio1">Semua laik</label>
+                        </div>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
+                        <div class="form-check form-check-inline">
                                 <span>Tidak Laik:</span>
                                 <input class="form-check-input" type="radio" value="tidak laik kanan" name="ban_belakang" id="customRadio1"
                                 @if ($bans[0]->ban_belakang == 'tidak laik kanan')
@@ -989,6 +998,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kanan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak laik kiri" name="ban_belakang" id="customRadio1"
                                 @if ($bans[0]->ban_belakang == 'tidak laik kiri')
                                     checked
@@ -996,14 +1007,10 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kiri</label>
-                          </div>
-                        </td>
-                        <td class="align-middle">
+                            </div>
                         </td>
                     </tr>
-                    @endif
                     {{-- E. Perlengkapan --}}
-                    @if ($perlengkapans->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -1013,6 +1020,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Perlengkapan</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- sabuk keselamatan pengemudi --}}
                     <tr>
@@ -1025,7 +1034,7 @@
                             <p class="font-weight-bold mb-0">Sabuk Keselamatan Pengemudi</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="sabukPengemudi" id="customRadio1"
                                 @if ($perlengkapans[0]->sabukPengemudi == 'ada')
                                     checked
@@ -1036,7 +1045,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak fungsi" name="sabukPengemudi" id="customRadio1"
                                 @if ($perlengkapans[0]->sabukPengemudi == 'tidak fungsi')
                                     checked
@@ -1044,6 +1053,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak fungsi</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="sabukPengemudi" id="customRadio1"
                                 @if ($perlengkapans[0]->sabukPengemudi == 'tidak ada')
                                     checked
@@ -1053,12 +1064,8 @@
                                 <label class="custom-control-label" for="customRadio1">tidak ada</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
-                    @endif
                     {{-- F. Pengukur Kecepatan --}}
-                    @if ($pengukurKecepatans->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -1068,6 +1075,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Pengukur Kecepatan</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- pengukur kecepatan --}}
                     <tr>
@@ -1080,7 +1089,7 @@
                             <p class="font-weight-bold mb-0">Pengukur Kecepatan</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="pengukurKecepatan" id="customRadio1"
                                 @if ($pengukurKecepatans[0]->pengukurKecepatan == 'ada')
                                     checked
@@ -1091,7 +1100,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak fungsi" name="pengukurKecepatan" id="customRadio1"
                                 @if ($pengukurKecepatans[0]->pengukurKecepatan == 'tidak fungsi')
                                     checked
@@ -1099,6 +1108,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak fungsi</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="pengukurKecepatan" id="customRadio1"
                                 @if ($pengukurKecepatans[0]->pengukurKecepatan == 'tidak ada')
                                     checked
@@ -1108,12 +1119,8 @@
                                 <label class="custom-control-label" for="customRadio1">tidak ada</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
-                    @endif
                     {{-- G. Pengahapus kaca (wiper) --}}
-                    @if ($wipers->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -1123,6 +1130,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Penghapus Kaca (WIPER)</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- Penghapus kaca --}}
                     <tr>
@@ -1135,7 +1144,7 @@
                             <p class="font-weight-bold mb-0">Penghapus Kaca</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="wiper" id="customRadio1"
                                 @if ($wipers[0]->wiper == 'ada')
                                     checked
@@ -1146,7 +1155,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak fungsi" name="wiper" id="customRadio1"
                                 @if ($wipers[0]->wiper == 'tidak fungsi')
                                     checked
@@ -1154,6 +1163,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak fungsi</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="wiper" id="customRadio1"
                                 @if ($wipers[0]->wiper == 'tidak ada')
                                     checked
@@ -1163,12 +1174,8 @@
                                 <label class="custom-control-label" for="customRadio1">tidak ada</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
-                    @endif
                     {{--H. Tanggap Darurat --}}
-                    @if ($tanggapDarurats->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -1178,6 +1185,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Tanggap Darurat</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- Pintu Darurat --}}
                     <tr>
@@ -1190,7 +1199,7 @@
                             <p class="font-weight-bold mb-0">Pintu Darurat</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="pintuDarurat" id="customRadio1"
                                 @if ($tanggapDarurats[0]->pintuDarurat == 'ada')
                                     checked
@@ -1201,7 +1210,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="pintuDarurat" id="customRadio1"
                                 @if ($tanggapDarurats[0]->pintuDarurat == 'tidak ada')
                                     checked
@@ -1210,8 +1219,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">tidak ada</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- Jendela Darurat --}}
@@ -1225,7 +1232,7 @@
                             <p class="font-weight-bold mb-0">Jendela Darurat</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="jendelaDarurat" id="customRadio1"
                                 @if ($tanggapDarurats[0]->jendelaDarurat == 'ada')
                                     checked
@@ -1236,7 +1243,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="jendelaDarurat" id="customRadio1"
                                 @if ($tanggapDarurats[0]->jendelaDarurat == 'tidak ada')
                                     checked
@@ -1245,8 +1252,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">tidak ada</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- Alat Pemecah kaca --}}
@@ -1260,7 +1265,7 @@
                             <p class="font-weight-bold mb-0">Alat Pemacah Kaca</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="alatPemecahkaca" id="customRadio1"
                                 @if ($tanggapDarurats[0]->alatPemecahkaca == 'ada')
                                     checked
@@ -1271,7 +1276,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="alatPemecahkaca" id="customRadio1"
                                 @if ($tanggapDarurats[0]->alatPemecahkaca == 'tidak ada')
                                     checked
@@ -1281,36 +1286,33 @@
                                 <label class="custom-control-label" for="customRadio1">tidak ada</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
                     @endif
-                  </tbody>
+                </tbody>
                 </table>
-              </div>
+            </div>
         </div>
 
         {{-- unsur teknis penunjang --}}
-        <div class="card px-5 my-3">
+        <div class="card border-success container px-5 my-3">
             <div class="my-3">
                 <h4>
                     III. Unsur Teknis Penunjang
                 </h4>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive card mb-3">
                 <table class="table align-items-center mb-0">
-                  <thead>
+                <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">NO</th>
-                      <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">KRITERIA</th>
-                      <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-success">DIIJINKAN OPEARASIONAL</th>
-                      <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-danger">TILANG & DILARANG OPERASIONAL</th>
-                      <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder">KETERANGAN</th>
+                        <th class="text-uppercase text-secondary text-xs text-truncate font-weight-bolder opacity-7">NO</th>
+                        <th class="text-uppercase text-secondary text-xs text-truncate font-weight-bolder opacity-7 ps-2">KRITERIA</th>
+                        <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-success">DIIJINKAN OPEARASIONAL</th>
+                        <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-danger">TILANG & DILARANG OPERASIONAL</th>
                     </tr>
-                  </thead>
-                  <tbody>
+                </thead>
+                <tbody>
                     {{-- A. sistem penerangan penunjang --}}
-                    @if ($peneranganPenunjangs->count())
+                    @if ($transaksis[0]->status_transaksi == false)
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -1320,6 +1322,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Sistem Penerangan</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- Lampu posisi --}}
                     <tr>
@@ -1331,19 +1335,21 @@
                         <td>
                             <p class="font-weight-bold mb-0">Lampu Posisi</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- A.Depan --}}
                     <tr>
-                      <td>
+                    <td>
                         <div class="d-flex px-2 py-1">
 
                         </div>
-                      </td>
-                      <td>
+                    </td>
+                    <td>
                         <p class="font-weight-bold mb-0">A.Depan</p>
-                      </td>
-                      <td class="align-middle">
-                        <div class="form-check">
+                    </td>
+                    <td class="align-middle">
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" value="menyala" name="lampuPosisi_depan" id="customRadio1"
                             @if ($peneranganPenunjangs[0]->lampuPosisi_depan == 'menyala')
                                 checked
@@ -1352,10 +1358,10 @@
                             @endif>
                             <label class="custom-control-label" for="customRadio1">semua menyala</label>
                         </div>
-                      </td>
-                      <td class="align-middle">
-                        <div class="form-check">
-                            <span>Tidak Menyala:</span>
+                    </td>
+                    <td class="align-middle">
+                        <span>Tidak Menyala:</span>
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" value="tidak menyala kanan" name="lampuPosisi_depan" id="customRadio1"
                             @if ($peneranganPenunjangs[0]->lampuPosisi_depan == 'tidak menyala kanan')
                                 checked
@@ -1363,6 +1369,8 @@
                                 disabled
                             @endif>
                             <label class="custom-control-label" for="customRadio1">kanan</label>
+                        </div>
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" value="tidak menyala kiri" name="lampuPosisi_depan" id="customRadio1"
                             @if ($peneranganPenunjangs[0]->lampuPosisi_depan == 'tidak menyala kiri')
                                 checked
@@ -1371,22 +1379,20 @@
                             @endif>
                             <label class="custom-control-label" for="customRadio1">kiri</label>
                         </div>
-                      </td>
-                      <td class="align-middle">
-                      </td>
+                    </td>
                     </tr>
                     {{-- B.Belakang --}}
                     <tr>
                         <td>
-                          <div class="d-flex px-2 py-1">
+                        <div class="d-flex px-2 py-1">
 
-                          </div>
+                        </div>
                         </td>
                         <td>
-                          <p class="font-weight-bold mb-0">B.Belakang</p>
+                        <p class="font-weight-bold mb-0">B.Belakang</p>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
+                        <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="menyala" name="lampuPosisi_belakang" id="customRadio1"
                                 @if ($peneranganPenunjangs[0]->lampuPosisi_belakang == 'menyala')
                                     checked
@@ -1394,11 +1400,11 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">semua menyala</label>
-                          </div>
+                        </div>
                         </td>
                         <td class="align-middle">
-                          <div class="form-check">
-                                <span>Tidak Menyala:</span>
+                            <span>Tidak Menyala:</span>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kanan" name="lampuPosisi_belakang" id="customRadio1"
                                 @if ($peneranganPenunjangs[0]->lampuPosisi_belakang == 'tidak menyala kanan')
                                         checked
@@ -1406,6 +1412,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kanan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak menyala kiri" name="lampuPosisi_belakang" id="customRadio1"
                                 @if ($peneranganPenunjangs[0]->lampuPosisi_belakang == 'tidak menyala kiri')
                                     checked
@@ -1413,14 +1421,10 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">kiri</label>
-                          </div>
-                        </td>
-                        <td class="align-middle">
+                            </div>
                         </td>
                     </tr>
-                    @endif
                     {{-- B. Badan Kendaraan --}}
-                    @if ($badankendaraanPenunjangs->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -1430,6 +1434,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Badan Kendaraan</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- kaca spion --}}
                     <tr>
@@ -1442,7 +1448,7 @@
                             <p class="font-weight-bold mb-0">Kaca Spion</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="sesuai" name="kacaSpion" id="customRadio1"
                                 @if ($badankendaraanPenunjangs[0]->kacaSpion == 'sesuai')
                                     checked
@@ -1453,7 +1459,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak sesuai" name="kacaSpion" id="customRadio1"
                                 @if ($badankendaraanPenunjangs[0]->kacaSpion == 'tidak sesuai')
                                     checked
@@ -1462,8 +1468,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak sesuai</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- Klakson --}}
@@ -1477,7 +1481,7 @@
                             <p class="font-weight-bold mb-0">Klakson</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="klakson" id="customRadio1"
                                 @if ($badankendaraanPenunjangs[0]->klakson == 'ada')
                                     checked
@@ -1488,7 +1492,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak fungsi" name="klakson" id="customRadio1"
                                 @if ($badankendaraanPenunjangs[0]->klakson == 'tidak fungsi')
                                     checked
@@ -1496,6 +1500,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak fungsi</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="klakson" id="customRadio1"
                                 @if ($badankendaraanPenunjangs[0]->klakson == 'tidak ada')
                                     checked
@@ -1504,8 +1510,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak ada</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- Lantai dan Tangga --}}
@@ -1519,7 +1523,7 @@
                             <p class="font-weight-bold mb-0">Lantai dan Tangga</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="baik" name="lantaiTangga" id="customRadio1"
                                 @if ($badankendaraanPenunjangs[0]->lantaiTangga == 'baik')
                                     checked
@@ -1530,7 +1534,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="keropos" name="lantaiTangga" id="customRadio1"
                                 @if ($badankendaraanPenunjangs[0]->lantaiTangga == 'keropos')
                                     checked
@@ -1540,12 +1544,8 @@
                                 <label class="custom-control-label" for="customRadio1">Keropos / berlubang</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
-                    @endif
                     {{-- C. Kapasitas tempat duduk --}}
-                    @if ($kapasitasPenunjangs->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -1555,6 +1555,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Kapasitas Tempat Duduk</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- Jumlah Tempat Duduk --}}
                     <tr>
@@ -1567,7 +1569,7 @@
                             <p class="font-weight-bold mb-0">Jumlah tempat duduk</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="sesuai" name="tempatDuduk" id="customRadio1"
                                 @if ($kapasitasPenunjangs[0]->tempatDuduk == 'sesuai')
                                     checked
@@ -1578,7 +1580,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak sesuai" name="tempatDuduk" id="customRadio1"
                                 @if ($kapasitasPenunjangs[0]->tempatDuduk == 'tidak sesuai')
                                     checked
@@ -1588,12 +1590,8 @@
                                 <label class="custom-control-label" for="customRadio1">Tidak sesuai</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
-                    @endif
                     {{-- D. Perlengkapan Kendaraan --}}
-                    @if ($perlengkapanPenunjangs->count())
                     <tr>
                         <td>
                             <div class="d-flex px-2 py-1">
@@ -1603,6 +1601,8 @@
                         <td>
                             <p class="font-weight-bold text-dark mb-0">Perlengakapan Kendaraan</p>
                         </td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {{-- Ban Cadangan --}}
                     <tr>
@@ -1615,7 +1615,7 @@
                             <p class="font-weight-bold mb-0">Ban Cadangan</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="banCadangan" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->banCadangan == 'ada')
                                     checked
@@ -1626,7 +1626,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak laik" name="banCadangan" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->banCadangan == 'tidak laik')
                                     checked
@@ -1634,6 +1634,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak laik</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="banCadangan" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->banCadangan == 'tidak ada')
                                     checked
@@ -1642,8 +1644,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak ada</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- Segitiga Pengaman --}}
@@ -1657,7 +1657,7 @@
                             <p class="font-weight-bold mb-0">Segitiga Pengaman</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="segitigaPengaman" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->segitigaPengaman == 'ada')
                                     checked
@@ -1668,7 +1668,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="segitigaPengaman" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->segitigaPengaman == 'tidak ada')
                                     checked
@@ -1677,8 +1677,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak ada</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- Dongkrak --}}
@@ -1692,7 +1690,7 @@
                             <p class="font-weight-bold mb-0">Dongkrak</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="dongkrak" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->dongkrak == 'ada')
                                     checked
@@ -1703,7 +1701,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="dongkrak" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->dongkrak == 'tidak ada')
                                     checked
@@ -1712,8 +1710,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak ada</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- Pembuka Roda --}}
@@ -1727,7 +1723,7 @@
                             <p class="font-weight-bold mb-0">Pembuka Roda</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="pembukaRoda" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->pembukaRoda == 'ada')
                                     checked
@@ -1738,7 +1734,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="pembukaRoda" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->pembukaRoda == 'tidak ada')
                                     checked
@@ -1747,8 +1743,6 @@
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak ada</label>
                             </div>
-                        </td>
-                        <td class="align-middle">
                         </td>
                     </tr>
                     {{-- Lampu Senter --}}
@@ -1762,7 +1756,7 @@
                             <p class="font-weight-bold mb-0">Lampu Senter</p>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="ada" name="lampuSenter" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->lampuSenter == 'ada')
                                     checked
@@ -1773,7 +1767,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <div class="form-check">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak fungsi" name="lampuSenter" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->lampuSenter == 'tidak fungsi')
                                     checked
@@ -1781,6 +1775,8 @@
                                     disabled
                                 @endif>
                                 <label class="custom-control-label" for="customRadio1">Tidak fungsi</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" value="tidak ada" name="lampuSenter" id="customRadio1"
                                 @if ($perlengkapanPenunjangs[0]->lampuSenter == 'tidak ada')
                                     checked
@@ -1790,13 +1786,151 @@
                                 <label class="custom-control-label" for="customRadio1">Tidak ada</label>
                             </div>
                         </td>
-                        <td class="align-middle">
-                        </td>
                     </tr>
                     @endif
-                  </tbody>
+                </tbody>
                 </table>
-              </div>
+            </div>
+        </div>
+
+        {{-- kesimpulan --}}
+        <div class="card border-success container px-5 my-3">
+            <div class="my-3">
+                <h4>
+                    KESIMPULAN
+                </h4>
+            </div>
+            <div class="table-responsive card">
+                <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                        <th class="text-uppercase text-secondary text-xs text-truncate font-weight-bolder opacity-7">NO</th>
+                        <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-success">LAIK JALAN</th>
+                        <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-danger">TIDAK LAIK JALAN</th>
+                        <th class="text-center text-uppercase text-secondary text-xs text-truncate font-weight-bolder">CATATAN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($transaksis->count())
+                        <tr>
+                            <td>
+                                <div class="d-flex px-2 py-1">
+                                <span>1</span>
+                                </div>
+                            </td>
+                            <td class="align-middle text-center border">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="ada" name="kartu_uji" id="customRadio1"
+                                    @if ($transaksis[0]->status_firstVerifikasi == true && $transaksis[0]->status_secondVerifikasi == true)
+                                        checked
+                                    @else
+                                        disabled
+                                    @endif>
+                                    <label class="custom-control-label" for="customRadio1">DIIJINKAN OPERASIONAL</label>
+                                </div>
+                            </td>
+                            <td class="align-middle text-center border">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="tidak ada" name="kartu_uji" id="customRadio1"
+                                    @if ($transaksis[0]->status_firstVerifikasi == false || $transaksis[0]->status_secondVerifikasi == false)
+                                        checked
+                                    @else
+                                        disabled
+                                    @endif>
+                                    <label class="custom-control-label" for="customRadio1">TILANG DAN DILARANG OPERASIONAL</label>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                @if ($transaksis[0]->status_firstVerifikasi == true && $transaksis[0]->status_secondVerifikasi == true)
+                                    <span>DIIJINKAN OPERASIONAL</span>
+                                @else
+                                    <span>TILANG DAN DILARANG OPERASIONAL</span>
+                                @endif
+                            </td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+            @if ($transaksis->count())
+            <div class="row mt-2 mb-5">
+                <h4>CATATAN KENDARAAN</h4>
+                <div class="col">
+                    <span>wajib diisi :</span>
+                    <div class="card" style="width: 23rem; height: 15rem;">
+                        <div class="card-body">
+                            @if ($transaksis[0]->status_firstVerifikasi == true && $transaksis[0]->status_secondVerifikasi == true)
+                                <p class="card-text">DIIJINKAN OPERASIONAL</p>
+                            @else
+                                <p class="card-text">TILANG DAN DILARANG OPERASIONAL</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <span>foto kerusakan :</span>
+                    <div class="card" style="width: 23rem; height: 15rem;">
+                        <img src="{{ asset('storage/' . $transaksis[0]->image) }}" style="max-height: 15rem;" alt="">
+                    </div>
+                </div>
+            </div>
+            @endif
+            @if ($transaksis->count())
+            <div class="table-responsive card mb-3">
+                    <div class="row">
+                            <div class="col-md d-flex align-items-start flex-column border" style="height: 200px;">
+                                <div class="px-2 py-1">
+                                    <p>Catatan:
+                                    </p>
+                                    <p>
+                                        Jika setiap unsur terdapat pelanggaran,
+                                        maka sanksi yang dikenakan adalah sanksi yang paling berat
+                                    </p>
+                                </div>
+                            </div>
+                            @if ($transaksis->count())
+                            <div class="col-md d-flex align-items-start flex-column border" style="height: 200px;">
+                                <div class="mb-auto px-2 py-1">
+                                    <h6>PENGEMUDI</h6>
+                                </div>
+                                <div class="px-2 py-1">
+                                    <h6>NAMA: {{ $transaksis[0]->driver }}</h6>
+                                </div>
+                            </div>
+                            <div class="col-md d-flex align-items-start flex-column border" style="height: 200px;">
+                                <div class="mb-auto px-2 py-1">
+                                    <h6>PENYEDIK PEGAWAI NEGERI SIPIL</h6>
+                                </div>
+                                <div class="px-2 py-1">
+                                    <h6>NIP: {{ $transaksis[0]->ppns_nip }}</h6>
+                                    <h6>NAMA: {{ $transaksis[0]->ppns_name }}</h6>
+                                </div>
+                            </div>
+                            @endif
+                            @if ($transaksis[0]->status_transaksi == false)
+                            <div class="col-md d-flex align-items-start flex-column border" style="height: 200px;">
+                                <div class="mb-auto px-2 py-1">
+                                    <h6>PENGUJI KENDARAAN BERMOTOR</h6>
+                                </div>
+                                <div class="px-2 py-1">
+                                    <h6>NIP: {{ $transaksis[0]->penguji_nip }}</h6>
+                                    <h6>NAMA: {{ $transaksis[0]->penguji_name }}</h6>
+                                </div>
+                            </div>
+                            @else
+                            <div class="col-md d-flex align-items-start flex-column border" style="height: 200px;">
+                                <div class="mb-auto px-2 py-1">
+                                    <h6>PENGUJI KENDARAAN BERMOTOR</h6>
+                                </div>
+                                <div class="px-2 py-1">
+                                    <h6>NIP: </h6>
+                                    <h6>NAMA: </h6>
+                                </div>
+                            </div>
+                            @endif
+                    </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>

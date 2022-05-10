@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,20 +26,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Gate::define('admin', function(User $user) {
-            return $user->role_id === 1;
-        });
+        // Gate::define('admin', function(User $user) {
+        //     return $user->role_id === 1;
+        // });
 
-        Gate::define('ppns', function(User $user) {
-            return $user->role_id === 2;
-        });
+        // Gate::define('ppns', function(User $user) {
+        //     return $user->role_id === 2;
+        // });
 
-        Gate::define('penguji', function(User $user) {
-            return $user->role_id = 3;
-        });
+        // Gate::define('penguji', function(User $user) {
+        //     return $user->role_id = 3;
+        // });
 
-        Gate::define('post', function(User $user) {
-            return $user->role_id = 4;
-        });
+        // Gate::define('post', function(User $user) {
+        //     return $user->role_id = 4;
+        // });
+        Paginator::useBootstrapFive();
     }
 }
