@@ -1,114 +1,102 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<div class="row mb-4">
-    {{-- <div class="col-lg-8 col-md-6 mb-md-0 mb-4"> --}}
-      <div class="card">
+<div class="row mb-4 mx-3">
+      <div class="card-transparant border border-success bg-after">
         <div class="d-flex">
             @hasanyrole('admin')
                 <div class="mx-3">
-                    <a href="/home/ramcheck" class="btn btn-success my-3">Export</a>
+                    <a href="/home/ramcheck" class="btn btn-success bg-gradient my-3 text-white fw-bold">Export</a>
                 </div>
             @endhasanyrole
             <div class="">
-                <button class="btn btn-warning mb-3 my-3 mx-3 text-white fw-bold" onclick='window.location.reload(true);'>Refresh</button>
+                <button class="btn btn-warning bg-gradient mb-3 my-3 mx-3 text-white fw-bold" onclick='window.location.reload(true);'>Refresh</button>
             </div>
         </div>
-        {{-- <div class="card-header pb-0">
-          <div class="row">
-            <div class="col-lg-6 col-7">
-              <h6>Projects</h6>
-              <p class="text-sm mb-0">
-                <i class="fa fa-check text-info" aria-hidden="true"></i>
-                <span class="font-weight-bold ms-1">30 done</span> this month
-              </p>
-            </div>
-            <div class="col-lg-6 col-5 my-auto text-end">
-              <div class="dropdown float-lg-end pe-4">
-                <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-ellipsis-v text-secondary"></i>
-                </a>
-                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                  <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
-                  <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
-                  <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div> --}}
-        <div class="card-body px-0 pb-2 mx-3">
-          <div class="table-responsive card mb-3">
-            <table class="table align-items-center mb-0">
+        <div class=" px-0 pb-2 mx-2">
+          <div class="table-responsive bg-transparant card mb-3">
+            <table class="table table-bordered border-dark align-items-center mb-0">
               <thead>
-                <tr class="bg-success">
-                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">No</th>
-                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Tanggal</th>
-                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Nama PO</th>
-                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Jenis Angkutan</th>
-                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Trayek</th>
-                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">No Kendaraan</th>
-                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Kesimpulan</th>
-                    <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Catatan</th>
+                <tr class="bg-success bg-gradient">
+                    <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">No</th>
+                    <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Tanggal</th>
+                    <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Nama PO</th>
+                    <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Jenis Angkutan</th>
+                    <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Trayek</th>
+                    <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">No Kendaraan</th>
+                    <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Kesimpulan</th>
+                    <th class="text-center text-uppercase text-white text-xxs text-truncate font-weight-bolder opacity-7">Catatan</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="fw-bold" style="color: #413F42">
                   @foreach ($transaksis as $transaksi)
                   <tr>
                     <td>
                         <div class="d-flex px-2 py-1">
                             <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ $loop->iteration }}</h6>
+                            <h6 class="mb-0 fw-bold">{{ $loop->iteration }}</h6>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="d-flex px-2 py-1">
                             <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">{{ $transaksi->updated_at->toDateString() }}</h6>
+                                <h6 class="mb-0 fw-bold">{{ $transaksi->created_at->toDateString() }}</h6>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="d-flex px-2 py-1">
                             <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">{{ $transaksi->name_po }}</h6>
+                                <h6 class="mb-0 fw-bold">{{ $transaksi->name_po }}</h6>
                             </div>
                         </div>
                     </td>
                     <td class="align-middle">
                       <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ $transaksi->jenis_angkutan }}</h6>
+                            <h6 class="mb-0 fw-bold">{{ $transaksi->jenis_angkutan }}</h6>
                           </div>
                       </div>
                     </td>
                     <td class="align-middle">
                         <div class="d-flex px-2 py-1">
                             <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">{{ $transaksi->trayek }}</h6>
+                              <h6 class="mb-0 fw-bold">{{ $transaksi->trayek }}</h6>
                             </div>
                         </div>
                     </td>
                     <td class="align-middle">
                         <div class="d-flex px-2 py-1">
                             <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">{{ $transaksi->number_vehicle }}</h6>
+                              <h6 class="mb-0 fw-bold">{{ $transaksi->number_vehicle }}</h6>
                             </div>
                         </div>
                     </td>
                     <td class="align-middle">
                         @if ($transaksi->status_firstVerifikasi == true && $transaksi->status_secondVerifikasi == true)
-                            <h6 class="text-success fw-bold">LAIK</h6>
+                            <h6 class="text-success fw-bold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                    <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                    <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                </svg>
+                                LAIK
+                            </h6>
                         @else
-                            <h6 class="text-danger fw-bold">TIDAK LAIK</h6>
+                            <h6 class="text-danger fw-bold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                                TIDAK LAIK
+                            </h6>
                         @endif
                     </td>
                     <td>
                         @if ($transaksi->status_firstVerifikasi == true && $transaksi->status_secondVerifikasi == true)
-                            <h6 class="text-success fw-bold">DIIJINKAN OPERASIONAL</h6>
+                            <h6 class="fw-bold">DIIJINKAN OPERASIONAL</h6>
                         @else
-                            <h6 class="text-danger fw-bold">TILANG DAN DILARANG OPERASIONAL</h6>
+                            <h6 class="fw-bold">TILANG DAN DILARANG OPERASIONAL</h6>
                         @endif
                     </td>
                   </tr>

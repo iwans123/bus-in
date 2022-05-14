@@ -20,7 +20,8 @@ class UserController extends Controller
         $user = User::latest();
 
         return view('dashboard.user.index', [
-            "users" => $user->paginate(7)
+            "users" => $user->paginate(10),
+            "roles" => Role::get()
         ]);
     }
 
@@ -48,10 +49,10 @@ class UserController extends Controller
     {
         // return request();
         $data = $request->validate([
-            'nip' => 'required',
+            'nip' => ['required', 'max:255'],
             'name' => ['required', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
-            // 'role_id' => ['required'],
+            'role' => ['required'],
             'password' => 'min:8|required_with:password-confirmation|same:password-confirmation',
             'password-confirmation' => 'min:8'
         ]);

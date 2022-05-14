@@ -31,7 +31,7 @@ class VerifikasiController extends Controller
         }
 
         return view('dashboard.firstVerifikasi.index', [
-            "vehicles" => $vehicle->paginate(7)
+            "vehicles" => $vehicle->paginate(10)
         ]);
     }
 
@@ -42,10 +42,7 @@ class VerifikasiController extends Controller
      */
     public function create()
     {
-        // return view('dashboard.firstVerifikasi.create', [
-        //     "verifikasis" => Verifikasi::all(),
-        //     "vehicle" => Vehicle::all()
-        // ]);
+
     }
 
     /**
@@ -116,14 +113,24 @@ class VerifikasiController extends Controller
             $transaksi['status_transaksi'] = true;
         }
 
-        if  ($request->oldImage) {
-            Storage::delete($request->oldImage);
+
+        // upload gambar
+        if ($request->image) {
+            $date = date('H-i-s');
+            $random = \Str::random(5);
+            try {
+                unlink($request->oldImage);
+            } catch (\Throwable $th) {
+            } finally {
+                $request->file('image')->move('upload/bukti',$date . $random . $request->file('image')->getClientOriginalName());
+                $transaksi['image'] = $date . $random . $request->file('image')->getClientOriginalName();
+            }
         }
-        if ($request->file('image')) {
-            $transaksi['image'] = $request->file('image')->store('post-image');
-        }
+
         $transaksi['ppns_name'] = Auth::user()->name;
         $transaksi['ppns_nip'] = Auth::user()->nip;
+        $transaksi['penguji_name'] = "Ahmad Taqy Haydar";
+        $transaksi['penguji_nip'] = "199906012021121002";
 
         Transaksi::create($transaksi);
 

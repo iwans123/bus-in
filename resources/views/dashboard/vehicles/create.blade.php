@@ -90,6 +90,17 @@
                     @enderror" id="lahir" name="birthday" placeholder="Masukkan Tanggal lahir">
                 </div>
                 <div class="mb-3">
+                    <label for="stuk" class="form-label">No Telepon</label>
+                    <input type="number" class="form-control @error('telephon')
+                    is-invalid
+                    @enderror" id="stuk" name="telephon" placeholder="Masukkan Nomor Telepon" value="{{ old('telephon') }}">
+                    @error('telephon')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                         <label for="stuk" class="form-label">No STUK</label>
                         <input type="text" class="form-control @error('number_stuk')
                         is-invalid

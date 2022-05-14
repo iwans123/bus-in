@@ -1,29 +1,7 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-{{-- <div class="card px-5 py-5">
-    <div class="row gx-4 mb-2">
-        <div class="col-auto">
-            <div class="avatar avatar-xl position-relative">
-                <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-            </div>
-        </div>
-        <div class="col-auto my-auto">
-            <div class="h-100">
-              <h5 class="mb-1">
-                {{ $verifikasi->updated_at->toDateString() }}
-              </h5>
-              <p class="mb-0 font-weight-normal text-sm">
-                {{ $verifikasi->vehicle->driver }}
-              </p>
-            </div>
-          </div>
-    </div>
-    <div class="row">
-        <span class="text-xs font-weight-bold badge bg-success">layak</span>
-    </div>
-</div> --}}
-<div class="card border-success container">
+<div class="card container border-success">
     <div class="row">
         <div class="border col-md-1">
             <span>NO.STUK</span>
@@ -41,28 +19,29 @@
 </div>
 <form method="post" action="/dashboard/secondVerifikasis">
     @csrf
-    <div class="input-group input-group-outline my-3">
+    <div class="input-group input-group-outline">
         <label class="form-label"></label>
         <input name="verifikasi_id" type="hidden" class="form-control hiden" value="{{ $verifikasi->id }}">
         <input name="vehicle_id" type="hidden" class="form-control hiden" value="{{ $verifikasi->vehicle_id }}">
     </div>
-    <div class="card border-success container px-5">
+    {{-- unsur teknis utama --}}
+    <div class="card-transparant border border-success px-2">
         <div class="my-3">
             <h3>
                 II. Unsur Teknis Utama
             </h3>
         </div>
-        <div class="table-responsive card mb-3">
-            <table class="table align-items-center mb-0">
+        <div class="table-responsive bg-transparant card mb-3">
+            <table class="table table-bordered border-dark align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">NO</th>
-                  <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">KRITERIA</th>
-                  <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-success">DIIJINKAN OPEARASIONAL</th>
-                  <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-danger">TILANG & DILARANG OPERASIONAL</th>
+                  <th class="text-uppercase text-white text-xs font-weight-bolder opacity-7 bg-primary bg-gradient">NO</th>
+                  <th class="text-uppercase text-white text-xs font-weight-bolder opacity-7 bg-primary bg-gradient">KRITERIA</th>
+                  <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-success bg-gradient">DIIJINKAN OPEARASIONAL</th>
+                  <th class="text-center text-uppercase text-white text-xs font-weight-bolder bg-danger bg-gradient">TILANG & DILARANG OPERASIONAL</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="fw-bold" style="color: #413F42">
                 {{-- sistem penerangan --}}
                 <tr>
                     <td>
@@ -681,23 +660,24 @@
             </table>
           </div>
     </div>
-    <div class="card border-success container px-5 my-3">
+    {{-- unsur teknis penunjang --}}
+    <div class="card-transparant border border-success px-2 my-3">
         <div class="my-3">
             <h3>
                 III. Unsur Teknis Penunjang
             </h3>
         </div>
-        <div class="table-responsive card mb-3">
-            <table class="table align-items-center mb-0">
+        <div class="table-responsive bg-transparant card mb-3">
+            <table class="table table-bordered border-dark align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xs text-truncate font-weight-bolder opacity-7">NO</th>
-                  <th class="text-uppercase text-secondary text-xs text-truncate font-weight-bolder opacity-7 ps-2">KRITERIA</th>
-                  <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-success">DIIJINKAN OPEARASIONAL</th>
-                  <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-danger">TILANG & DILARANG OPERASIONAL</th>
+                  <th class="text-uppercase text-white text-xs text-truncate font-weight-bolder opacity-7 bg-primary bg-gradient">NO</th>
+                  <th class="text-uppercase text-white text-xs text-truncate font-weight-bolder opacity-7 bg-primary bg-gradient">KRITERIA</th>
+                  <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-success bg-gradient">DIIJINKAN OPEARASIONAL</th>
+                  <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-danger bg-gradient">TILANG & DILARANG OPERASIONAL</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="fw-bold" style="color: #413F42">
                 {{-- A. sistem penerangan penunjang --}}
                 <tr>
                     <td>
@@ -1042,7 +1022,8 @@
             </table>
           </div>
     </div>
-    <div class="card border-success container my-2 px-5">
+    {{-- bukti gambar --}}
+    <div class="card border-success px-2">
         <div class="my-3">
             <h3>
                 Bukti Gambar

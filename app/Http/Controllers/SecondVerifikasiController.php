@@ -65,7 +65,7 @@ class SecondVerifikasiController extends Controller
         }
         // dd($verifikasi);
         return view('dashboard.secondVerifikasi.index', [
-            'verifikasis' => $transaksi->paginate(7),
+            'verifikasis' => $transaksi->paginate(10),
         ]);
     }
 

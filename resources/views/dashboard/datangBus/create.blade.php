@@ -3,60 +3,6 @@
 @section('container')
 <div class="row">
     <div class="mt-5 mb-md-0 mb-4">
-        {{-- <div class="card px-5">
-            <div class="row gx-4 mb-2">
-                <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                    </div>
-                </div>
-                <div class="col-auto my-auto">
-                    <div class="h-100">
-                      <h5 class="mb-1">
-                        {{ $vehicle->driver }}
-                      </h5>
-                      <p class="mb-0 font-weight-normal text-sm">
-                        Driver
-                      </p>
-                    </div>
-                  </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="input-group input-group-static my-3">
-                    <label for="lahir">Update At</label>
-                    <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->update_at }}" disabled>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="input-group input-group-static my-3">
-                        <label for="lahir">Trayek</label>
-                        <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->trayek }}" disabled>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="input-group input-group-static my-3">
-                        <label for="lahir">PO</label>
-                        <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->name_po }}" disabled>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                      <div class="input-group input-group-static my-3">
-                          <label for="lahir">No Kendaraan</label>
-                          <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->number_vehicle }}" disabled>
-                      </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="input-group input-group-static my-3">
-                        <label for="lahir">Jenis Angkutan</label>
-                        <input class="form-control" id="lahir" name="birthday" value="{{ $vehicle->jenis_angkutan }}" disabled>
-                    </div>
-                    </div>
-            </div>
-        </div> --}}
-
         {{-- detail kendaraan --}}
         <div class="card border-success container px-5 my-3">
             <div class="card-body px-0 pb-2">
@@ -143,6 +89,7 @@
                             </div>
                             <div class="col border">
                                 <span>
+                                    {{ $vehicle->birthday }}
                                 </span>
                             </div>
                         </div>

@@ -27,7 +27,7 @@ class KedatanganController extends Controller
         // $kedatangan = kedatangan::latest();
 
         return view('dashboard.datangBus.index',[
-            'kedatangans' => $kedatangan->paginate(7)
+            'kedatangans' => $kedatangan->paginate(10)
         ]);
     }
 

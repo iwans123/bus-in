@@ -43,10 +43,10 @@ class RoleSeeder extends Seeder
         ]);
 
         $admin = User::create([
-            'name' => 'Bima Setyawan',
-            'nip' => 1111,
-            'email' => 'bimasetyawan565@gmail.com',
-            'password' => bcrypt('11111111'),
+            'name' => 'Ahmad Yusuf Ismail',
+            'nip' => '198811142009121003',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('admin123'),
             'remember_token' => \Str::random(60),
             'created_at' => now(),
             'updated_at' => now()

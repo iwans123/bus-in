@@ -21,8 +21,9 @@ return new class extends Migration
             $table->string('number_vehicle');
             $table->string('jenis_kendaraan');
             $table->string('driver');
+            $table->string('telephon');
             $table->string('number_stuk');
-            $table->date('birthday');
+            $table->string('birthday');
             $table->string('jenis_angkutan');
             $table->string('trayek');
             $table->timestamps();

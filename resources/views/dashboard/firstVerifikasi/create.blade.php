@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<div class="card border-success container">
+<div class="card container border-success">
     <div class="row">
         <div class="border col-md-1">
             <span>NO.STUK</span>
@@ -23,23 +23,24 @@
         <label class="form-label"></label>
         <input name="vehicle_id" type="hidden" class="form-control hiden" value="{{ $vehicle->id }}">
     </div>
-    <div class="card border-success container px-5">
+    {{-- unsur administrasi --}}
+    <div class="card-transparant border border-success px-2">
         <div class="my-3">
             <h3>
-                Unsur Adminisrasi
+                I. Unsur Adminisrasi
             </h3>
         </div>
-        <div class="table-responsive card mb-3">
-            <table class="table align-items-center mb-0">
+        <div class="table-responsive bg-transparant card mb-3">
+            <table class="table table-bordered border-dark align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">NO</th>
-                  <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">KRITERIA</th>
-                  <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-success">DIIJINKAN OPEARASIONAL</th>
-                  <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-danger">TILANG & DILARANG OPERASIONAL</th>
+                  <th class="text-uppercase text-white text-xs font-weight-bolder opacity-7 bg-primary bg-gradient">NO</th>
+                  <th class="text-uppercase text-white text-xs font-weight-bolder opacity-7 bg-primary bg-gradient">KRITERIA</th>
+                  <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-success bg-gradient">DIIJINKAN OPEARASIONAL</th>
+                  <th class="text-center text-uppercase text-white text-xs text-truncate font-weight-bolder bg-danger bg-gradient">TILANG & DILARANG OPERASIONAL</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="fw-bold" style="color: #413F42">
                 <tr>
                   <td>
                     <div class="d-flex px-2 py-1">
@@ -164,7 +165,8 @@
             </table>
         </div>
     </div>
-    <div class="card border-success container my-2 px-5">
+    {{-- bukti gambar --}}
+    <div class="card-transparant border border-success my-2 px-2">
         <div class="my-3">
             <h3>
                 Bukti Gambar
@@ -172,7 +174,7 @@
         </div>
         <div class="input-group my-3">
             @if ($transaksis->count())
-                <input type="hidden" name="oldImage" value="{{ $transaksis[0]->image }}">
+            <input type="hidden" name="oldImage" value="{{ $transaksis[0]->image }}">
             @endif
             <input type="file" class="form-control" @error('image') is-invalid @enderror id="image" name="image" onchange="previewImage()">
             <label class="input-group-text" for="image">Upload Photo</label>
@@ -183,7 +185,9 @@
             @enderror
         </div>
         <img class="img-preview img-fluid my-2" style="max-width: 350px;">
-        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        <div class="input-group d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
     </div>
 </form>
 

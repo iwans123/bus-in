@@ -20,6 +20,22 @@
                 <td>{{ $transaksi->jenis_angkutan }}</td>
                 <td>{{ $transaksi->trayek }}</td>
                 <td>{{ $transaksi->number_vehicle }}</td>
+                @if ($transaksi->status_firstVerifikasi == true && $transaksi->status_secondVerifikasi == true)
+                <td style="color: green">
+                    <span>Laik</span>
+                </td>
+                @else
+                <td style="color: red">
+                    <span>Tidak laik</span>
+                </td>
+                @endif
+                <td>
+                    @if ($transaksi->status_firstVerifikasi == true && $transaksi->status_secondVerifikasi == true)
+                        DIIJINKAN OPERASIONAL
+                    @else
+                        TILANG DAN DILARANG OPERASIONAL
+                    @endif
+                </td>
             </tr>
         @endforeach
     </tbody>

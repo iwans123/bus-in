@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => ['auth','role:admin']], function() {
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/home/ramcheck', [App\Http\Controllers\HomeController::class, 'export']);
-    Route::get('/dashboard/downloadpdf', [DashboardVehicleController::class, 'downloadPDF']);
+    Route::get('/dashboard/vehicles/downloadpdf/{id}', [DashboardVehicleController::class, 'downloadPDF']);
     Route::resource('/dashboard/user', UserController::class);
     Route::get('/dashboard/kedatangan/exportexcel', [KedatanganController::class, 'export']);
     Route::get('/dashboard/keberangkatan/exportexcel', [KeberangkatanController::class, 'export']);

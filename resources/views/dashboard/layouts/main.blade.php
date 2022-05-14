@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Bus | in</title>
+    <title>Rampcheck</title>
     <link rel="icon" href="{{ url('css/favicon.png') }}">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbars/">
 
@@ -23,23 +23,57 @@
         -moz-user-select: none;
         user-select: none;
       }
-
+      .bg-image{
+        background-repeat: no-repeat;
+        position: relative;
+        /* min-height: 100vh; */
+      }
+      .bg-image::before{
+        content: '';
+        background: url('/css/dishub.png');
+        background-position-x: 50%;
+        background-position-y: 140px;
+        background-size: 30% 70%;
+        background-repeat: no-repeat;
+        position: fixed;
+        z-index: -1;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+        /* height: 100vh; */
+        opacity: 50%
+      }
+      .bg-transparant{
+          background-color: rgb(223, 223, 222,0.75);
+      }
+      .bg-after{
+          position: relative;
+      }
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
       }
+      @media (max-width: 768px) {
+        .bg-image{
+            /* height: 120vh; */
+        }
+        .bg-image::before{
+        background-size: 90%;
+        /* height: 120vh; */
+      }
+    }
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="/css/navbar.css" rel="stylesheet">
   </head>
-  <body>
-
+<body >
 <main>
     @include('dashboard.layouts.navbar')
-    <div class="container-fluid">
+    <div class="container-fluid bg-image bg-image::before">
         @yield('container')
     </div>
 </main>

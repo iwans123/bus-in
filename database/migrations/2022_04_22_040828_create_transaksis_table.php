@@ -26,7 +26,8 @@ return new class extends Migration
             $table->foreignId('wiper_id')->nullable()->references('id')->on('wipers');
             $table->foreignId('tanggapDarurat_id')->nullable()->references('id')->on('tanggap_darurats');
             $table->foreignId('peneranganPenunjang_id')->nullable()->references('id')->on('penerangan_penunjangs');
-            $table->foreignId('badanKendaraanPenunjang_id')->nullable()->references('id')->on('badanKendaraan_penunjangs');
+            // $table->unsignedBigInteger('badanKendaraanPenunjang_id');
+            $table->foreignId('badanKendaraanPenunjang_id')->nullable()->references('id')->on('badankendaraan_penunjangs');
             $table->foreignId('kapasitasPenunjang_id')->nullable()->references('id')->on('kapasitas_penunjangs');
             $table->foreignId('perlengkapanPenunjang_id')->nullable()->references('id')->on('perlengkapan_penunjangs');
             $table->boolean('status_transaksi')->nullable();
@@ -35,10 +36,12 @@ return new class extends Migration
             $table->string('catatan')->nullable();
             $table->string('image')->nullable();
             $table->string('ppns_name')->nullable();
-            $table->integer('ppns_nip')->nullable();
+            $table->string('ppns_nip')->nullable();
             $table->string('penguji_name')->nullable();
-            $table->integer('penguji_nip')->nullable();
+            $table->string('penguji_nip')->nullable();
             $table->timestamps();
+
+            // $table->foreign('badanKendaraanPenunjang_id')->references('id')->on('badankendaraan_penunjangs')->onDelete('cascade');
         });
     }
 

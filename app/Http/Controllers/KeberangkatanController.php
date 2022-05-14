@@ -26,7 +26,7 @@ class KeberangkatanController extends Controller
                                         ->latest('keberangkatans.created_at');
 
         return view('dashboard.pergiBus.index',[
-            'keberangkatans' => $keberangkatan->paginate(7)
+            'keberangkatans' => $keberangkatan->paginate(10)
         ]);
     }
 

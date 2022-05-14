@@ -17,8 +17,10 @@ use App\Models\Tanggap_darurat;
 use App\Models\Vehicle;
 use App\Models\Verifikasi;
 use App\Models\Wiper;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class DashboardVehicleController extends Controller
 {
@@ -35,7 +37,7 @@ class DashboardVehicleController extends Controller
     {
 
         return view('dashboard.vehicles.index', [
-            "vehicles" => Vehicle::paginate(7)
+            "vehicles" => Vehicle::paginate(10)
         ]);
     }
 
@@ -65,12 +67,15 @@ class DashboardVehicleController extends Controller
             'number_vehicle' => 'required',
             'jenis_kendaraan' => 'required',
             'driver' => 'required|max:255',
+            'telephon' => 'required',
             'number_stuk' => 'required',
             'birthday' => 'required',
             'jenis_angkutan' => 'required',
             'trayek' => 'required|max:255',
         ]);
+        $date = Carbon::parse($request->birthday)->diff(Carbon::now())->y;
 
+        $validateData['birthday'] = $date;
         Vehicle::create($validateData);
 
         return redirect('dashboard/vehicles');
@@ -106,6 +111,8 @@ class DashboardVehicleController extends Controller
                             ->where('transaksis.vehicle_id', $id)
                             ->latest('transaksis.created_at');
         $vehicle = Vehicle::find($id);
+        // $datebirth = Vehicle::select('birthday')->find($id);
+        // $age = Carbon::parse($datebirth->birthday)->age;
         $verifikasi = Verifikasi::where('vehicle_id', $id)
                                 ->latest();
 
@@ -151,63 +158,64 @@ class DashboardVehicleController extends Controller
         return view('dashboard.vehicles.show',compact('vehicle'), [
             // transaksi
             'transaksis' => $transaksi->get(['transaksis.status_firstVerifikasi',
-            'transaksis.status_secondVerifikasi',
-            'transaksis.status_transaksi',
-            'transaksis.image',
-            'transaksis.ppns_name',
-            'transaksis.ppns_nip',
-            'transaksis.penguji_name',
-            'transaksis.penguji_nip',
-            'vehicles.driver',
-            // // unsur administrasi
-            // 'verifikasis.kartu_uji',
-            // 'verifikasis.kp_reguler',
-            // 'verifikasis.kp_cadangan',
-            // 'verifikasis.sim_pengemudi',
-            // // unsur utama
-            // // penerangan
-            // 'penerangans.lampuUtama_dekat',
-            // 'penerangans.lampuUtama_jauh',
-            // 'penerangans.sein_depan',
-            // 'penerangans.sein_belakang',
-            // 'penerangans.lampuRem',
-            // 'penerangans.lampuMundur',
-            // // // pengereman
-            // 'pengeremen.remUtama',
-            // 'pengeremen.remParkir',
-            // // badan kendaraan
-            // 'badan_kendaraans.kaca_depan',
-            // 'badan_kendaraans.pintu_utama',
-            // // ban
-            // 'bans.ban_depan',
-            // 'bans.ban_belakang',
-            // // perlengkapan
-            // 'perlengkapans.sabukPengemudi',
-            // // pengukur kecepatan
-            // 'pengukur_kecepatans.pengukurKecepatan',
-            // // wiper
-            // 'wipers.wiper',
-            // // tanggap darurat
-            // 'tanggap_darurats.pintuDarurat',
-            // 'tanggap_darurats.jendelaDarurat',
-            // 'tanggap_darurats.alatPemecahkaca',
-            // // unsur teknis
-            // // penerangan penunjang
-            // 'penerangan_penunjangs.lampuPosisi_depan',
-            // 'penerangan_penunjangs.lampuPosisi_belakang',
-            // // badan kendaraan
-            // 'badankendaraan_penunjangs.kacaSpion',
-            // 'badankendaraan_penunjangs.klakson',
-            // 'badankendaraan_penunjangs.lantaiTangga',
-            // // kapasitas penunjang
-            // 'kapasitas_penunjangs.tempatDuduk',
-            // // perlengkapan penunjang
-            // 'perlengkapan_penunjangs.banCadangan',
-            // 'perlengkapan_penunjangs.segitigaPengaman',
-            // 'perlengkapan_penunjangs.dongkrak',
-            // 'perlengkapan_penunjangs.pembukaRoda',
-            // 'perlengkapan_penunjangs.lampuSenter'
-        ]),
+                                            'transaksis.status_secondVerifikasi',
+                                            'transaksis.status_transaksi',
+                                            'transaksis.image',
+                                            'transaksis.ppns_name',
+                                            'transaksis.ppns_nip',
+                                            'transaksis.penguji_name',
+                                            'transaksis.penguji_nip',
+                                            'transaksis.created_at',
+                                            'vehicles.driver',
+                                            // // unsur administrasi
+                                            // 'verifikasis.kartu_uji',
+                                            // 'verifikasis.kp_reguler',
+                                            // 'verifikasis.kp_cadangan',
+                                            // 'verifikasis.sim_pengemudi',
+                                            // // unsur utama
+                                            // // penerangan
+                                            // 'penerangans.lampuUtama_dekat',
+                                            // 'penerangans.lampuUtama_jauh',
+                                            // 'penerangans.sein_depan',
+                                            // 'penerangans.sein_belakang',
+                                            // 'penerangans.lampuRem',
+                                            // 'penerangans.lampuMundur',
+                                            // // // pengereman
+                                            // 'pengeremen.remUtama',
+                                            // 'pengeremen.remParkir',
+                                            // // badan kendaraan
+                                            // 'badan_kendaraans.kaca_depan',
+                                            // 'badan_kendaraans.pintu_utama',
+                                            // // ban
+                                            // 'bans.ban_depan',
+                                            // 'bans.ban_belakang',
+                                            // // perlengkapan
+                                            // 'perlengkapans.sabukPengemudi',
+                                            // // pengukur kecepatan
+                                            // 'pengukur_kecepatans.pengukurKecepatan',
+                                            // // wiper
+                                            // 'wipers.wiper',
+                                            // // tanggap darurat
+                                            // 'tanggap_darurats.pintuDarurat',
+                                            // 'tanggap_darurats.jendelaDarurat',
+                                            // 'tanggap_darurats.alatPemecahkaca',
+                                            // // unsur teknis
+                                            // // penerangan penunjang
+                                            // 'penerangan_penunjangs.lampuPosisi_depan',
+                                            // 'penerangan_penunjangs.lampuPosisi_belakang',
+                                            // // badan kendaraan
+                                            // 'badankendaraan_penunjangs.kacaSpion',
+                                            // 'badankendaraan_penunjangs.klakson',
+                                            // 'badankendaraan_penunjangs.lantaiTangga',
+                                            // // kapasitas penunjang
+                                            // 'kapasitas_penunjangs.tempatDuduk',
+                                            // // perlengkapan penunjang
+                                            // 'perlengkapan_penunjangs.banCadangan',
+                                            // 'perlengkapan_penunjangs.segitigaPengaman',
+                                            // 'perlengkapan_penunjangs.dongkrak',
+                                            // 'perlengkapan_penunjangs.pembukaRoda',
+                                            // 'perlengkapan_penunjangs.lampuSenter'
+                                        ]),
             // unsur administrasi
             'verifikasis' => $verifikasi->get(),
             // unsur teknis utama
@@ -273,6 +281,7 @@ class DashboardVehicleController extends Controller
             'number_vehicle' => 'required',
             'jenis_kendaraan' => 'required',
             'driver' => 'required|max:255',
+            'telephon' => 'required',
             'number_stuk' => 'required',
             'birthday' => 'required',
             'jenis_angkutan' => 'required',
@@ -299,18 +308,205 @@ class DashboardVehicleController extends Controller
 
         return redirect('dashboard/vehicles');
     }
-    public function downloadPDF()
+    public function downloadPDF($id)
     {
+        $transaksi = Transaksi::
+                            // kendaraan
+                            join('vehicles', 'vehicles.id', '=', 'transaksis.vehicle_id')
+                            ->where('transaksis.vehicle_id', $id)
+                            ->latest('transaksis.created_at');
+        $vehicle = Vehicle::find($id);
+        // verifikasi
+        $verifikasi = Verifikasi::where('vehicle_id', $id)
+                                ->latest();
+
+        // unsur teknis utama
+        $penerangan = Penerangan::join('verifikasis', 'verifikasis.id', '=', 'penerangans.verifikasi_id')
+                                ->where('verifikasis.vehicle_id', $id)
+                                ->latest('penerangans.created_at');
+        $pengereman = Pengereman::join('verifikasis', 'verifikasis.id', '=', 'pengeremen.verifikasi_id')
+                                ->where('verifikasis.vehicle_id', $id)
+                                ->latest('pengeremen.created_at');
+        $badanKendaraan = Badan_kendaraan::join('verifikasis', 'verifikasis.id', '=', 'badan_kendaraans.verifikasi_id')
+                                        ->where('verifikasis.vehicle_id', $id)
+                                        ->latest('badan_kendaraans.created_at');
+        $ban = Ban::join('verifikasis', 'verifikasis.id', '=', 'bans.verifikasi_id')
+                    ->where('verifikasis.vehicle_id', $id)
+                    ->latest('bans.created_at');
+        $perlengkapan = Perlengkapan::join('verifikasis', 'verifikasis.id', '=', 'perlengkapans.verifikasi_id')
+                    ->where('verifikasis.vehicle_id', $id)
+                    ->latest('perlengkapans.created_at');
+        $pengukurKecepatan = Pengukur_kecepatan::join('verifikasis', 'verifikasis.id', '=', 'pengukur_kecepatans.verifikasi_id')
+                                                ->where('verifikasis.vehicle_id', $id)
+                                                ->latest('pengukur_kecepatans.created_at');
+        $wiper = Wiper::join('verifikasis', 'verifikasis.id', '=', 'wipers.verifikasi_id')
+                        ->where('verifikasis.vehicle_id', $id)
+                        ->latest('wipers.created_at');
+        $tanggapDarurat = Tanggap_darurat::join('verifikasis', 'verifikasis.id', '=', 'tanggap_darurats.verifikasi_id')
+                                        ->where('verifikasis.vehicle_id', $id)
+                                        ->latest('tanggap_darurats.created_at');
+
+        // unsur teknis penunjang
+        $peneranganPenunjang = Penerangan_penunjang::join('verifikasis', 'verifikasis.id', '=', 'penerangan_penunjangs.verifikasi_id')
+                                                    ->where('verifikasis.vehicle_id', $id)
+                                                    ->latest('penerangan_penunjangs.created_at');
+        $badanKendaraanPenunjang = Badankendaraan_penunjang::join('verifikasis', 'verifikasis.id', '=', 'badankendaraan_penunjangs.verifikasi_id')
+                                            ->where('verifikasis.vehicle_id', $id)
+                                            ->latest('badankendaraan_penunjangs.created_at');
+        $kapasitasPenunjang = Kapasitas_penunjang::join('verifikasis', 'verifikasis.id', '=', 'kapasitas_penunjangs.verifikasi_id')
+                                                ->where('verifikasis.vehicle_id', $id)
+                                                ->latest('kapasitas_penunjangs.created_at');
+        $perlengkapanPenunjang = Perlengkapan_penunjang::join('verifikasis', 'verifikasis.id', '=', 'perlengkapan_penunjangs.verifikasi_id')
+                                                        ->where('verifikasis.vehicle_id', $id)
+                                                        ->latest('perlengkapan_penunjangs.created_at');
         // view()->share('verifikasi', $verifikasi);
         // return 'berhasil';
-        $verifikasi = Verifikasi::latest();
-        return view('download-pdf', [
-            'verifikasi' => $verifikasi->get()
-        ]);
-        // $vehicle = Vehicle::find(1);
-        // $pdf = \PDF::loadView('download-pdf', [
-        //     'verifikasi' => $verifikasi->get()
+        // $customPaper = array(0,0,612,1008);
+        // ->setPaper($customPaper, 'landscape')
+        // $verifikasi = Verifikasi::where('vehicle_id', $id)->latest();
+        // return view('download-pdf', compact('vehicle'), [
+        //     // transaksi
+        //     'transaksis' => $transaksi->get(['transaksis.status_firstVerifikasi',
+        //                                     'transaksis.status_secondVerifikasi',
+        //                                     'transaksis.status_transaksi',
+        //                                     'transaksis.image',
+        //                                     'transaksis.ppns_name',
+        //                                     'transaksis.ppns_nip',
+        //                                     'transaksis.penguji_name',
+        //                                     'transaksis.penguji_nip',
+        //                                     'transaksis.created_at',
+        //                                     'vehicles.driver',
+        //                                     // // unsur administrasi
+        //                                     // 'verifikasis.kartu_uji',
+        //                                     // 'verifikasis.kp_reguler',
+        //                                     // 'verifikasis.kp_cadangan',
+        //                                     // 'verifikasis.sim_pengemudi',
+        //                                     // // unsur utama
+        //                                     // // penerangan
+        //                                     // 'penerangans.lampuUtama_dekat',
+        //                                     // 'penerangans.lampuUtama_jauh',
+        //                                     // 'penerangans.sein_depan',
+        //                                     // 'penerangans.sein_belakang',
+        //                                     // 'penerangans.lampuRem',
+        //                                     // 'penerangans.lampuMundur',
+        //                                     // // // pengereman
+        //                                     // 'pengeremen.remUtama',
+        //                                     // 'pengeremen.remParkir',
+        //                                     // // badan kendaraan
+        //                                     // 'badan_kendaraans.kaca_depan',
+        //                                     // 'badan_kendaraans.pintu_utama',
+        //                                     // // ban
+        //                                     // 'bans.ban_depan',
+        //                                     // 'bans.ban_belakang',
+        //                                     // // perlengkapan
+        //                                     // 'perlengkapans.sabukPengemudi',
+        //                                     // // pengukur kecepatan
+        //                                     // 'pengukur_kecepatans.pengukurKecepatan',
+        //                                     // // wiper
+        //                                     // 'wipers.wiper',
+        //                                     // // tanggap darurat
+        //                                     // 'tanggap_darurats.pintuDarurat',
+        //                                     // 'tanggap_darurats.jendelaDarurat',
+        //                                     // 'tanggap_darurats.alatPemecahkaca',
+        //                                     // // unsur teknis
+        //                                     // // penerangan penunjang
+        //                                     // 'penerangan_penunjangs.lampuPosisi_depan',
+        //                                     // 'penerangan_penunjangs.lampuPosisi_belakang',
+        //                                     // // badan kendaraan
+        //                                     // 'badankendaraan_penunjangs.kacaSpion',
+        //                                     // 'badankendaraan_penunjangs.klakson',
+        //                                     // 'badankendaraan_penunjangs.lantaiTangga',
+        //                                     // // kapasitas penunjang
+        //                                     // 'kapasitas_penunjangs.tempatDuduk',
+        //                                     // // perlengkapan penunjang
+        //                                     // 'perlengkapan_penunjangs.banCadangan',
+        //                                     // 'perlengkapan_penunjangs.segitigaPengaman',
+        //                                     // 'perlengkapan_penunjangs.dongkrak',
+        //                                     // 'perlengkapan_penunjangs.pembukaRoda',
+        //                                     // 'perlengkapan_penunjangs.lampuSenter'
+        //                                 ]),
+        //     // unsur administrasi
+        //     'verifikasis' => $verifikasi->get(),
+        //     // unsur teknis utama
+        //     'penerangans' => $penerangan->get(['penerangans.lampuUtama_dekat',
+        //                                         'penerangans.lampuUtama_jauh',
+        //                                         'penerangans.sein_depan',
+        //                                         'penerangans.sein_belakang',
+        //                                         'penerangans.lampuRem',
+        //                                         'penerangans.lampuMundur']),
+        //     'pengeremans' => $pengereman->get(['pengeremen.remUtama',
+        //                                         'pengeremen.remParkir']),
+        //     'badanKendaraans' => $badanKendaraan->get(['badan_kendaraans.kaca_depan',
+        //                                                 'badan_kendaraans.pintu_utama']),
+        //     'bans' => $ban->get(['bans.ban_depan',
+        //                         'bans.ban_belakang']),
+        //     'perlengkapans' => $perlengkapan->get(['perlengkapans.sabukPengemudi']),
+        //     'pengukurKecepatans' => $pengukurKecepatan->get(['pengukur_kecepatans.pengukurKecepatan']),
+        //     'wipers' => $wiper->get(['wipers.wiper']),
+        //     'tanggapDarurats' => $tanggapDarurat->get(['tanggap_darurats.pintuDarurat',
+        //                                                 'tanggap_darurats.jendelaDarurat',
+        //                                                 'tanggap_darurats.alatPemecahkaca']),
+        //     // unsur teknis penunjang
+        //     'peneranganPenunjangs' => $peneranganPenunjang->get(['penerangan_penunjangs.lampuPosisi_depan',
+        //                                                         'penerangan_penunjangs.lampuPosisi_belakang']),
+        //     'badankendaraanPenunjangs' => $badanKendaraanPenunjang->get(['badankendaraan_penunjangs.kacaSpion',
+        //                                                         'badankendaraan_penunjangs.klakson',
+        //                                                         'badankendaraan_penunjangs.lantaiTangga']),
+        //     'kapasitasPenunjangs' => $kapasitasPenunjang->get(['kapasitas_penunjangs.tempatDuduk']),
+        //     'perlengkapanPenunjangs' => $perlengkapanPenunjang->get(['perlengkapan_penunjangs.banCadangan',
+        //                                                             'perlengkapan_penunjangs.segitigaPengaman',
+        //                                                             'perlengkapan_penunjangs.dongkrak',
+        //                                                             'perlengkapan_penunjangs.pembukaRoda',
+        //                                                             'perlengkapan_penunjangs.lampuSenter'])
         // ]);
-        // return $pdf->download('Data_Ramcheck.pdf');
+        // $vehicle = Vehicle::find(1);
+        $pdf = FacadePdf::loadView('download-pdf', compact('vehicle'), [
+            // transaksi
+            'transaksis' => $transaksi->get(['transaksis.status_firstVerifikasi',
+                                            'transaksis.status_secondVerifikasi',
+                                            'transaksis.status_transaksi',
+                                            'transaksis.image',
+                                            'transaksis.ppns_name',
+                                            'transaksis.ppns_nip',
+                                            'transaksis.penguji_name',
+                                            'transaksis.penguji_nip',
+                                            'transaksis.created_at',
+                                            'vehicles.driver',
+                                        ]),
+            // unsur administrasi
+            'verifikasis' => $verifikasi->get(),
+            // unsur teknis utama
+            'penerangans' => $penerangan->get(['penerangans.lampuUtama_dekat',
+                                                'penerangans.lampuUtama_jauh',
+                                                'penerangans.sein_depan',
+                                                'penerangans.sein_belakang',
+                                                'penerangans.lampuRem',
+                                                'penerangans.lampuMundur']),
+            'pengeremans' => $pengereman->get(['pengeremen.remUtama',
+                                                'pengeremen.remParkir']),
+            'badanKendaraans' => $badanKendaraan->get(['badan_kendaraans.kaca_depan',
+                                                        'badan_kendaraans.pintu_utama']),
+            'bans' => $ban->get(['bans.ban_depan',
+                                'bans.ban_belakang']),
+            'perlengkapans' => $perlengkapan->get(['perlengkapans.sabukPengemudi']),
+            'pengukurKecepatans' => $pengukurKecepatan->get(['pengukur_kecepatans.pengukurKecepatan']),
+            'wipers' => $wiper->get(['wipers.wiper']),
+            'tanggapDarurats' => $tanggapDarurat->get(['tanggap_darurats.pintuDarurat',
+                                                        'tanggap_darurats.jendelaDarurat',
+                                                        'tanggap_darurats.alatPemecahkaca']),
+            // unsur teknis penunjang
+            'peneranganPenunjangs' => $peneranganPenunjang->get(['penerangan_penunjangs.lampuPosisi_depan',
+                                                                'penerangan_penunjangs.lampuPosisi_belakang']),
+            'badankendaraanPenunjangs' => $badanKendaraanPenunjang->get(['badankendaraan_penunjangs.kacaSpion',
+                                                                'badankendaraan_penunjangs.klakson',
+                                                                'badankendaraan_penunjangs.lantaiTangga']),
+            'kapasitasPenunjangs' => $kapasitasPenunjang->get(['kapasitas_penunjangs.tempatDuduk']),
+            'perlengkapanPenunjangs' => $perlengkapanPenunjang->get(['perlengkapan_penunjangs.banCadangan',
+                                                                    'perlengkapan_penunjangs.segitigaPengaman',
+                                                                    'perlengkapan_penunjangs.dongkrak',
+                                                                    'perlengkapan_penunjangs.pembukaRoda',
+                                                                    'perlengkapan_penunjangs.lampuSenter'])
+        ])->setPaper('legal');
+        return $pdf->download('Data_Ramcheck_'. $vehicle->driver.'.pdf');
     }
 }
